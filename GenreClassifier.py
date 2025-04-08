@@ -1,0 +1,122 @@
+import os
+
+import keras
+import librosa
+import numpy as np
+from tqdm import tqdm
+from sklearn.preprocessing import LabelEncoder
+from sklearn.model_selection import train_test_split
+from keras import Sequential
+import tensorflow as tf
+import matplotlib.pyplot as plt
+import librosa.display
+import random
+
+base_dir = "/Users/kveen/Desktop/Data/SoundData/genres_original"
+genres = sorted(os.listdir(base_dir))
+
+# Make sure these are lists
+X = []
+y = []
+
+# Spectrogram extraction function
+def extract_mel_spectrogram(file_path, n_mels=128, fixed_length=660):
+    y, sr = librosa.load(file_path, duration=30)
+    mel = librosa.feature.melspectrogram(y=y, sr=sr, n_mels=n_mels)
+    mel_db = librosa.power_to_db(mel, ref=np.max)
+    mel_db = librosa.util.fix_length(mel_db, size=fixed_length, axis=1)
+    return mel_db
+
+# Loop through genres and files
+for genre in tqdm(genres):
+    genre_dir = os.path.join(base_dir, genre)
+
+    # Skip .DS_Store or anything that's not a folder
+    if not os.path.isdir(genre_dir):
+        continue
+
+    for filename in os.listdir(genre_dir):
+        if filename.endswith('.wav'):
+            file_path = os.path.join(genre_dir, filename)
+            try:
+                spectrogram = extract_mel_spectrogram(file_path)
+                X.append(spectrogram)  # Make sure X is a list here
+                y.append(genre)
+            except Exception as e:
+                print(f"Error processing {file_path}: {e}")
+
+# Convert only after all .append() calls are done
+X = np.array(X)
+y = np.array(y)
+
+
+# Create and fit the encoder
+label_encoder = LabelEncoder()
+y_encoded = label_encoder.fit_transform(y)  # y was a list/array of genres
+
+# Show mapping
+for i, label in enumerate(label_encoder.classes_):
+    print(f"{i}: {label}")
+
+y = y_encoded
+X = (X - np.mean(X)) / (np.std(X) + 1e-7)
+
+
+print("Shape of X:", X.shape)
+print("Labels:", np.unique(y))
+
+
+def show_random_spectrogram(X, y, label_encoder):
+    idx = random.randint(0, len(X) - 1)
+    spectrogram = X[idx].squeeze()
+    label = y[idx]
+
+    plt.figure(figsize=(10, 4))
+    librosa.display.specshow(spectrogram, sr=22050, x_axis='time', y_axis='mel')
+    plt.colorbar(format='%+2.0f dB')
+    plt.title(f"Mel Spectrogram - Genre: {label}")
+    plt.tight_layout()
+    plt.show()
+
+show_random_spectrogram(X, y, label_encoder=None)
+X = X[..., np.newaxis]
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+
+model = keras.models.Sequential([
+    keras.layers.Conv2D(32, (3,3), activation='relu', input_shape=(128, 660, 1)),
+    keras.layers.BatchNormalization(),
+    keras.layers.MaxPooling2D(2,2),
+    keras.layers.Dropout(0.3),
+
+    keras.layers.Conv2D(64, (3,3), activation='relu'),
+    keras.layers.BatchNormalization(),
+    keras.layers.MaxPooling2D(2,2),
+    keras.layers.Dropout(0.3),
+
+    keras.layers.Conv2D(128, (3,3), activation='relu'),
+    keras.layers.BatchNormalization(),
+    keras.layers.MaxPooling2D(2,2),
+    keras.layers.Dropout(0.3),
+
+    keras.layers.Flatten(),
+    keras.layers.Dense(128, activation='relu'),
+    keras.layers.Dropout(0.4),
+    keras.layers.Dense(10, activation='softmax')
+])
+
+
+# Set your hyperparameters
+epochs = 8  # Try different numbers 12
+batch_size = 64  # Try different sizes 128
+optimizer = "adam"  # Try different optimizers "adam"
+validation_split = 0.20 # Try different splits 0.2
+
+model.compile(optimizer=optimizer,
+              loss="sparse_categorical_crossentropy",
+              metrics=["accuracy"])
+
+model_history = model.fit(X_train, y_train, epochs=epochs, batch_size=batch_size, validation_split=validation_split, verbose=1)
+
+test_loss, test_accuracy = model.evaluate(X_test, y_test)
+
+print("Test Accuracy:", test_accuracy)
