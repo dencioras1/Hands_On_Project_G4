@@ -1,0 +1,52 @@
+\ProvidesPackage{mcs}[2023/02/06 v.01 for UTwente MSc Computer Science: Research Topics + Final Project]
+\usepackage[a4paper,margin=3cm,bottom=3cm,top=3cm,head=1cm,foot=1.5cm]{geometry}
+\pagestyle{plain}
+\usepackage{graphicx} 
+\usepackage{amsmath}
+%\usepackage{tocloft}          % fixes spacing problem in table of contents 
+\bibliographystyle{plainurl}
+\usepackage{hyperref}
+\hypersetup{colorlinks,linkcolor=blue,citecolor=blue,urlcolor=blue,filecolor=blue}
+
+\usepackage[normal,sc]{caption} % [hang]
+\captionmargin \parindent
+
+\usepackage{watermark}
+\thiswatermark{%
+  \put(-105,-680){\includegraphics[width=7.5cm]{utwentetitle-back-11.pdf}}%
+  \put(-60,-755){\includegraphics[width=6cm]{utlogo.pdf}}}
+
+\renewcommand{\today}{\ifcase \month \or January\or February\or  %
+March\or April\or May \or June\or July\or August\or September\or %
+October\or November\or December\fi, \number \year} 
+
+% for cover page:
+\newcommand*{\coverauthor}[1]{\gdef\@coverauthor{#1}}
+\newcommand*{\supervisor}[1]{\gdef\@supervisor{#1}}
+\newcommand*{\covertitle}[1]{\gdef\@covertitle{#1}}
+\newcommand*{\doctype}[1]{\gdef\@doctype{#1}}
+\newcommand*{\makecoverpage}{%
+\thispagestyle{empty}
+\hspace{4.0cm}\parbox[t]{10.8cm}{\LARGE BSc Creative Technology\\\@doctype}
+\vfill 
+\vfill 
+\hspace{4.0cm}\parbox[t]{10.8cm}{%
+  \begin{flushleft}\huge{\bfseries\@covertitle}\end{flushleft}}
+\vfill 
+\hspace{4.0cm}\parbox[t]{10.8cm}{\LARGE \@coverauthor}
+\vfill 
+
+\hspace{4.0cm}\parbox[t]{10.8cm}{\today}
+\vfill 
+\hspace{4.0cm}\parbox[t]{10.8cm}{%
+  
+  Faculty of Electrical Engineering, \\
+  Mathematics and Computer Science, \\
+  University of Twente}%
+\newpage%
+} % end makecoverpage
+
+%\newcommand{\keywords}{\parskip 1em\noindent\emph{Keywords:}}
+
+\def\keywords{\vspace{1em}\noindent{\textit{Keywords}:\,\relax}}%
+\def\endkeywords{\par}
