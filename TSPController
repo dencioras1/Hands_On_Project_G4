@@ -1,0 +1,166 @@
+#!/usr/bin/env python
+import time as Time
+import os
+import cv2
+import numpy as np
+import pygame
+from support_functions import *
+
+# Constants for grid size
+ROWS, COLUMNS = 27, 19
+
+TSP = TSPDecoder(rows=ROWS, columns=COLUMNS)
+grid_current = np.zeros((ROWS, COLUMNS), dtype=np.uint8)
+grid = np.zeros((ROWS, COLUMNS), dtype=np.uint8)
+
+# Sensitivity for the TSP, higher value -> less sensitive
+TSP_sensitivity = 40
+
+# Variables for quadrant states
+top_left_pressed = False
+top_right_pressed = False
+bottom_left_pressed = False
+bottom_right_pressed = False
+
+top_left_active = False
+top_right_active = False
+bottom_left_active = False
+bottom_right_active = False
+
+# Define constants for Pygame visualization
+SCREEN_WIDTH = 600
+SCREEN_HEIGHT = 600
+PIXEL_WIDTH = 20
+PIXEL_HEIGHT = 20
+PIXEL_MARGIN = 5
+
+# Create the screen and initialize Pygame
+pygame.init()
+screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
+pygame.display.set_caption("Sensor Grid Visualization")
+clock = pygame.time.Clock()
+
+display_running = True
+
+def check_input(quadrant):
+    """Check if there is any value in the quadrant array."""
+    return np.any(quadrant)
+
+def draw_quad():
+    """Draw quadrants based on their pressed state."""
+    if top_left_pressed:
+        pygame.draw.rect(
+            screen,
+            (255, 255, 255),  # White color for pressed quadrants
+            [
+                0,
+                0,
+                SCREEN_WIDTH / 2,
+                SCREEN_HEIGHT / 2,
+            ]
+        )
+    if top_right_pressed:
+        pygame.draw.rect(
+            screen,
+            (255, 255, 255),
+            [
+                SCREEN_WIDTH / 2,
+                0,
+                SCREEN_WIDTH / 2,
+                SCREEN_HEIGHT / 2,
+            ]
+        )
+    if bottom_left_pressed:
+        pygame.draw.rect(
+            screen,
+            (255, 255, 255),
+            [
+                0,
+                SCREEN_HEIGHT / 2,
+                SCREEN_WIDTH / 2,
+                SCREEN_HEIGHT / 2,
+            ]
+        )
+    if bottom_right_pressed:
+        pygame.draw.rect(
+            screen,
+            (255, 255, 255),
+            [
+                SCREEN_WIDTH / 2,
+                SCREEN_HEIGHT / 2,
+                SCREEN_WIDTH / 2,
+                SCREEN_HEIGHT / 2,
+            ]
+        )
+
+while display_running:
+    # Handle Pygame events (e.g., quit)
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            display_running = False
+
+    # Update grid from TSP frame if available
+    if TSP.frame_available:
+        grid_current = TSP.readFrame()
+
+    # Process sensor data and update grid values based on sensitivity threshold
+    for row in range(ROWS):
+        for column in range(COLUMNS):
+            if grid_current[row][column] >= TSP_sensitivity:
+                grid[row][column] = grid_current[row][column]
+
+    # Define quadrants with gaps forming a "plus sign"
+    top_left_quad = grid[:13, :9]
+    top_right_quad = grid[:13, 10:]
+    bottom_left_quad = grid[14:, :9]
+    bottom_right_quad = grid[14:, 10:]
+
+    # Check if quadrants are pressed and update state variables accordingly
+    if check_input(top_left_quad):
+        if not top_left_active:  # Transition from "not pressed" to "pressed"
+            print("Top Left Pressed!")
+        top_left_active = True
+        top_left_pressed = True
+    else:
+        top_left_active = False
+        top_left_pressed = False
+
+    if check_input(top_right_quad):
+        if not top_right_active: 
+            print("Top Right Pressed!")
+        top_right_active = True
+        top_right_pressed = True
+    else:
+        top_right_active = False
+        top_right_pressed = False
+
+    if check_input(bottom_left_quad):
+        if not bottom_left_active: 
+            print("Bottom Left Pressed!")
+        bottom_left_active = True
+        bottom_left_pressed = True
+    else:
+        bottom_left_active = False
+        bottom_left_pressed = False
+
+    if check_input(bottom_right_quad):
+        if not bottom_right_active: 
+            print("Bottom Right Pressed!")
+        bottom_right_active = True
+        bottom_right_pressed = True
+    else:
+        bottom_right_active = False
+        bottom_right_pressed = False
+
+    # Clear the screen and draw quadrants based on their state
+    screen.fill((0, 0, 0))
+    draw_quad()
+
+    # Limit framerate to 60 FPS and update display
+    clock.tick(60)
+    pygame.display.flip()
+
+    # Reset grid for next frame processing (if needed)
+    grid.fill(0)
+
+pygame.quit()
