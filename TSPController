@@ -18,7 +18,7 @@ grid_current = np.zeros((ROWS, COLUMNS), dtype=np.uint8)
 grid = np.zeros((ROWS, COLUMNS), dtype=np.uint8)
 
 # Sensitivity for the TSP, higher value -> less sensitive
-TSP_sensitivity = 60
+TSP_sensitivity = 70
 
 # Variables for quadrant states (tracks if a quadrant is currently pressed)
 quadrant_states = {
