@@ -95,8 +95,6 @@ class Game:
         PLAY_BACK.update(SCREEN)
         QUIT.update(SCREEN)
 
-        if key[pygame.K_u]:
-            return
         if key[pygame.K_i]:
             pygame.quit()
             sys.exit()
