@@ -6,19 +6,10 @@ import pygame
 from support_functions import *
 import AudioController
 import threading
+import serial
 
 # Audio Controller object
 audio_controller = AudioController.AudioController(44100, 512)
-
-# Constants for grid size
-ROWS, COLUMNS = 27, 19
-
-TSP = TSPDecoder(rows=ROWS, columns=COLUMNS)
-grid_current = np.zeros((ROWS, COLUMNS), dtype=np.uint8)
-grid = np.zeros((ROWS, COLUMNS), dtype=np.uint8)
-
-# Sensitivity for the TSP, higher value -> less sensitive
-TSP_sensitivity = 70
 
 # Variables for quadrant states (tracks if a quadrant is currently pressed)
 quadrant_states = {
@@ -42,6 +33,9 @@ pygame.display.set_caption("Sensor Grid Visualization")
 clock = pygame.time.Clock()
 
 display_running = True
+
+# Serial Setup - update COM port and baudrate to match Arduino
+ser = serial.Serial('COM8', 9600, timeout=0.1)  # CHANGE COM3 to whatever your Arduino is using
 
 def check_input(quadrant):
     return np.any(quadrant)
@@ -71,87 +65,59 @@ def stop_recording():
         recording_active = False
         recording_timer = None
 
+
 while display_running:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             display_running = False
-        elif event.type == pygame.KEYDOWN:
-            if event.key == pygame.K_q:
+
+    # Serial input handling from Arduino
+    try:
+        serial_input = ser.readline().decode('utf-8').strip()
+        # print(f"Recording Timer: {recording_timer}")
+
+        any_quadrant_active = False
+
+        if serial_input:
+
+            if serial_input == "BL":
                 if not quadrant_states["bottom_left"]:
                     print("Bottom Left Pressed!")
                     audio_controller.play_kick()
                     start_recording()
                 quadrant_states["bottom_left"] = True
                 any_quadrant_active = True
-            elif event.key == pygame.K_k:
-                print("k pressed, bitch.")
+            else:
+                quadrant_states["bottom_left"] = False
 
-    if TSP.frame_available:
-        grid_current = TSP.readFrame()
+            if serial_input == "BR":
+                if not quadrant_states["bottom_right"]:
+                    print("Bottom Right Pressed!")
+                    audio_controller.play_clap()
+                    start_recording()
+                quadrant_states["bottom_right"] = True
+                any_quadrant_active = True
+            else:
+                quadrant_states["bottom_right"] = False
 
-        for row in range(ROWS):
-            for column in range(COLUMNS):
-                if grid_current[row][column] >= TSP_sensitivity:
-                    grid[row][column] = grid_current[row][column]
-                else:
-                    grid[row][column] = 0
+            if serial_input == "TL":
+                if not quadrant_states["top_left"]:
+                    print("Top Left Pressed!")
+                quadrant_states["top_left"] = True
+                any_quadrant_active = True
+            else:
+                quadrant_states["top_left"] = False
 
-        top_left_quad = grid[:13, :9]
-        top_right_quad = grid[:13, 10:]
-        bottom_left_quad = grid[14:, :9]
-        bottom_right_quad = grid[14:, 10:]
-
-        any_quadrant_active = False
-
-        # Top Left
-        if check_input(top_left_quad):
-            if not quadrant_states["top_left"]:
-                print("Top Left Pressed!")
-            quadrant_states["top_left"] = True
-            any_quadrant_active = True
-        else:
-            if quadrant_states["top_left"]:
-                print("Top Left Released!")
-            quadrant_states["top_left"] = False
-
-        # Top Right
-        if check_input(top_right_quad):
-            if not quadrant_states["top_right"]:
-                print("Top Right Pressed!")
-            quadrant_states["top_right"] = True
-            any_quadrant_active = True
-        else:
-            if quadrant_states["top_right"]:
-                print("Top Right Released!")
-            quadrant_states["top_right"] = False
-
-        # Bottom Left (Kick)
-        if check_input(bottom_left_quad):
-            if not quadrant_states["bottom_left"]:
-                print("Bottom Left Pressed!")
-                audio_controller.play_kick()
-                start_recording()
-            quadrant_states["bottom_left"] = True
-            any_quadrant_active = True
-        else:
-            if quadrant_states["bottom_left"]:
-                print("Bottom Left Released!")
-            quadrant_states["bottom_left"] = False
-
-        # Bottom Right (Clap)
-        if check_input(bottom_right_quad):
-            if not quadrant_states["bottom_right"]:
-                print("Bottom Right Pressed!")
-                audio_controller.play_clap()
-                start_recording()
-            quadrant_states["bottom_right"] = True
-            any_quadrant_active = True
-        else:
-            if quadrant_states["bottom_right"]:
-                print("Bottom Right Released!")
-            quadrant_states["bottom_right"] = False
+            if serial_input == "TR":
+                if not quadrant_states["top_right"]:
+                    print("Top Right Pressed!")
+                quadrant_states["top_right"] = True
+                any_quadrant_active = True
+            else:
+                quadrant_states["top_right"] = False
 
         # Handle recording timer based on activity
+        print(f"Serial Input: {serial_input} First: {not any_quadrant_active} Second: {recording_active} Third: {recording_timer is None}")
         if not any_quadrant_active and recording_active and recording_timer is None:
             print("No quadrant active. Stopping recording after delay.")
             recording_timer = threading.Timer(5.0, stop_recording)
@@ -160,6 +126,17 @@ while display_running:
             print("Activity detected. Cancelling stop timer.")
             recording_timer.cancel()
             recording_timer = None
+
+
+        else:
+            # Reset all quadrant states if no serial input
+            quadrant_states["bottom_left"] = False
+            quadrant_states["bottom_right"] = False
+            quadrant_states["top_left"] = False
+            quadrant_states["top_right"] = False
+
+    except Exception as e:
+        print(f"Serial error: {e}")
 
     screen.fill((0, 0, 0))
     draw_quad()

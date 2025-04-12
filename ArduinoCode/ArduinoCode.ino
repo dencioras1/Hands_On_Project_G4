@@ -21,7 +21,7 @@ void loop() {
   // TOP LEFT
   if (digitalRead(TOP_LEFT_PIN) == LOW && !top_left_pressed) {
     top_left_pressed = true;
-    Serial.println("Top Left Button Pressed!");
+    Serial.println("TL");
   }
   if (digitalRead(TOP_LEFT_PIN) == HIGH && top_left_pressed) {
     top_left_pressed = false;
@@ -30,7 +30,7 @@ void loop() {
   // TOP RIGHT
   if (digitalRead(TOP_RIGHT_PIN) == LOW && !top_right_pressed) {
     top_right_pressed = true;
-    Serial.println("Top Right Button Pressed!");
+    Serial.println("TR");
   }
   if (digitalRead(TOP_RIGHT_PIN) == HIGH && top_right_pressed) {
     top_right_pressed = false;
@@ -39,7 +39,7 @@ void loop() {
   // KICK
   if (digitalRead(KICK_PIN) == LOW && !kick_pressed) {
     kick_pressed = true;
-    Serial.println("Kick Button Pressed!");
+    Serial.println("BL");
   }
   if (digitalRead(KICK_PIN) == HIGH && kick_pressed) {
     kick_pressed = false;
@@ -48,7 +48,7 @@ void loop() {
   // CLAP
   if (digitalRead(CLAP_PIN) == LOW && !clap_pressed) {
     clap_pressed = true;
-    Serial.println("Clap Button Pressed!");
+    Serial.println("BR");
   }
   if (digitalRead(CLAP_PIN) == HIGH && clap_pressed) {
     clap_pressed = false;
