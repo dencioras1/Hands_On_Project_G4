@@ -60,12 +60,12 @@ class Game:
             moving_sprites.update()
             pygame.display.flip()
 
-
-
-
         animation.is_animating = False
         SCREEN.fill("black")
-        self.current_genre_number += 1
+        if self.current_genre_number == 9:
+            self.current_genre_number = 0
+        else:
+            self.current_genre_number += 1
 
 
 

@@ -21,7 +21,7 @@ class GenreClassifier:
         self.base_dir = "/Users/kveen/Documents/GitHub/Hands_On_Project_G4/Audio"
         self.genres = sorted(os.listdir(self.base_dir))
         self.labels = ["BoomBap", "BossaNova", "BrazilianFunk", "Dancehall", "DnB", "Dubstep", "House", "JerseyClub",
-                       "Raggaeton", "Trap"]
+                       "Reggaeton", "Trap"]
 
     keras.utils.set_random_seed(42)
 
