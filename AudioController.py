@@ -7,7 +7,6 @@ import threading
 class AudioController:
     def __init__(self, freq, buff):
         pygame.mixer.init(frequency=freq, buffer=buff)
-        pygame.mixer.music.set_volume(0)
         self.kick_sample = pygame.mixer.Sound('Audio/Samples/Kick.wav')
         self.clap_sample = pygame.mixer.Sound('Audio/Samples/Clap.wav')
         self.recording = False

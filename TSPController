@@ -75,6 +75,16 @@ while display_running:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             display_running = False
+        elif event.type == pygame.KEYDOWN:
+            if event.key == pygame.K_q:
+                if not quadrant_states["bottom_left"]:
+                    print("Bottom Left Pressed!")
+                    audio_controller.play_kick()
+                    start_recording()
+                quadrant_states["bottom_left"] = True
+                any_quadrant_active = True
+            elif event.key == pygame.K_k:
+                print("k pressed, bitch.")
 
     if TSP.frame_available:
         grid_current = TSP.readFrame()
