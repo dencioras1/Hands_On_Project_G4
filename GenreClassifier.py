@@ -2,6 +2,7 @@ import os
 import pickle
 
 import keras
+from keras import ops
 import librosa
 import numpy as np
 from tqdm import tqdm
@@ -19,8 +20,10 @@ class GenreClassifier:
         self.label_encoder = None
         self.base_dir = "/Users/kveen/Documents/GitHub/Hands_On_Project_G4/Audio"
         self.genres = sorted(os.listdir(self.base_dir))
+        self.labels = ["BoomBap", "BossaNova", "BrazilianFunk", "Dancehall", "DnB", "Dubstep", "House", "JerseyClub",
+                       "Reggaeton", "Trap"]
 
-
+    keras.utils.set_random_seed(42)
 
     # Spectrogram extraction function
     def extract_mel_spectrogram(self, file_path, n_mels=128, fixed_length=330):
@@ -29,7 +32,6 @@ class GenreClassifier:
         mel_db = librosa.power_to_db(mel, ref=np.max)
         mel_db = librosa.util.fix_length(mel_db, size=fixed_length, axis=1)
         return mel_db
-
 
     def data_prep(self):
         # Make sure these are lists
@@ -58,7 +60,6 @@ class GenreClassifier:
         X = np.array(X)
         y = np.array(y)
 
-
         # Create and fit the encoder
         label_encoder = LabelEncoder()
         y_encoded = label_encoder.fit_transform(y)  # y was a list/array of genres
@@ -70,11 +71,10 @@ class GenreClassifier:
         y = y_encoded
         X = (X - np.mean(X)) / (np.std(X) + 1e-7)
 
-
         print("Shape of X:", X.shape)
         print("Labels:", np.unique(y))
-        return X, y
 
+        return X, y
 
     def show_random_spectrogram(self, X, y, label_encoder=None, sr=22050, fixed_length=330):
         idx = random.randint(0, len(X) - 1)
@@ -98,18 +98,17 @@ class GenreClassifier:
         X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_state=42)
         return X_train, X_test, y_train, y_test
 
-
     def model_function(self):
         model = keras.models.Sequential([
             keras.Input(shape=(128, 330, 1)),
-            keras.layers.Conv2D(32, (3,3), activation='relu'),
+            keras.layers.Conv2D(32, (3, 3), activation='relu'),
             keras.layers.BatchNormalization(),
-            keras.layers.MaxPooling2D(2,2),
+            keras.layers.MaxPooling2D(2, 2),
             keras.layers.Dropout(0.05),
 
-            keras.layers.Conv2D(16, (3,3), activation='relu'),
+            keras.layers.Conv2D(16, (3, 3), activation='relu'),
             keras.layers.BatchNormalization(),
-            keras.layers.MaxPooling2D(2,2),
+            keras.layers.MaxPooling2D(2, 2),
 
             keras.layers.Flatten(),
             keras.layers.Dense(128, activation='relu'),
@@ -119,16 +118,17 @@ class GenreClassifier:
 
     def train_model(self, model, X_test, y_test, X_train, y_train):
         # Set your hyperparameters
-        epochs = 8  # Try different numbers 12
+        epochs = 8 # used to be 8  # Try different numbers 12
         batch_size = 16  # Try different sizes 128
         optimizer = "adam"  # Try different optimizers "adam"
-        validation_split = 0.2 # Try different splits 0.2
+        validation_split = 0.2  # Try different splits 0.2
 
         model.compile(optimizer=optimizer,
                       loss="sparse_categorical_crossentropy",
                       metrics=["accuracy"])
 
-        model_history = model.fit(X_train, y_train, epochs=epochs, batch_size=batch_size, validation_split=validation_split,
+        model_history = model.fit(X_train, y_train, epochs=epochs, batch_size=batch_size,
+                                  validation_split=validation_split,
                                   verbose=1)
 
         test_loss, test_accuracy = model.evaluate(X_test, y_test)
@@ -146,50 +146,43 @@ class GenreClassifier:
         # with open("saved_models/label_encoder.pkl", "wb") as f:
         #     pickle.dump(self.label_encoder, f)
 
-
         return model_history, model, X_test, y_test
 
-    # def load_model_and_encoder(self, model_path="saved_models/genre_model.h5",
-    #                            encoder_path="saved_models/label_encoder.pkl"):
-    #     self.model = keras.models.load_model(model_path)
-    #     with open(encoder_path, "rb") as f:
-    #         self.label_encoder = pickle.load(f)
-    #
-    # def predict_file(self, file_path):
-    #     spectrogram = self.extract_mel_spectrogram(file_path)
-    #     spectrogram = (spectrogram - np.mean(spectrogram)) / (np.std(spectrogram) + 1e-7)
-    #     spectrogram = spectrogram[np.newaxis, ..., np.newaxis]
-    #     prediction = self.model.predict(spectrogram)
-    #     index = np.argmax(prediction, axis=1)[0]
-    #     return self.label_encoder.inverse_transform([index])[0]
+    def predict_file(self, model, file_path):
+        spectrogram = self.extract_mel_spectrogram(file_path)
+        spectrogram = (spectrogram - np.mean(spectrogram)) / (np.std(spectrogram) + 1e-7)
+        spectrogram = spectrogram[np.newaxis, ..., np.newaxis]
+        prediction = model.predict(spectrogram)
+        index = np.argmax(prediction, axis=1)[0]
+        return self.labels[index]
 
+    def show_model_training(self, model_history_local, model, X_test_local, y_test_local):
+        # Plot Training and Validation Loss
+        plt.figure(figsize=(5, 5))
+        plt.plot(model_history_local.history['loss'], label='Train Loss', color='orange')
+        plt.plot(model_history_local.history['val_loss'], label='Validation Loss', color='blue')
+        plt.xlabel('Epochs')
+        plt.ylabel('Loss')
+        plt.legend()
+        plt.title('Training and Validation Loss')
+        plt.show()
 
-def plot(model_history, model, X_test, y_test):
-    # Plot Training and Validation Loss
-    plt.figure(figsize=(5, 5))
-    plt.plot(model_history.history['loss'], label='Train Loss', color='orange')
-    plt.plot(model_history.history['val_loss'], label='Validation Loss', color='blue')
-    plt.xlabel('Epochs')
-    plt.ylabel('Loss')
-    plt.legend()
-    plt.title('Training and Validation Loss')
-    plt.show()
+        # Plot Training and Validation Accuracy
+        plt.figure(figsize=(5, 5))
+        plt.plot(model_history_local.history['accuracy'], label='Train Accuracy', color='pink')
+        plt.plot(model_history_local.history['val_accuracy'], label='Validation Accuracy', color='green')
+        plt.xlabel('Epochs')
+        plt.ylabel('Accuracy')
+        plt.legend()
+        plt.title('Training and Validation Accuracy')
+        plt.show()
 
-    # Plot Training and Validation Accuracy
-    plt.figure(figsize=(5, 5))
-    plt.plot(model_history.history['accuracy'], label='Train Accuracy', color='pink')
-    plt.plot(model_history.history['val_accuracy'], label='Validation Accuracy', color='green')
-    plt.xlabel('Epochs')
-    plt.ylabel('Accuracy')
-    plt.legend()
-    plt.title('Training and Validation Accuracy')
-    plt.show()
+        # Evaluate the model on the test set
+        test_loss, test_accuracy = model.evaluate(X_test_local, y_test_local)
 
-    # Evaluate the model on the test set
-    test_loss, test_accuracy = model.evaluate(X_test, y_test)
+        # Print test accuracy
+        print("Test Accuracy:", test_accuracy)
 
-    # Print test accuracy
-    print("Test Accuracy:", test_accuracy)
 
 
 # def gridsearch():
@@ -215,25 +208,24 @@ def plot(model_history, model, X_test, y_test):
 #     return all_histories, all_values
 
 
-
-
-
 # all_histories, all_values = gridsearch()
 
 # Best values:
-    #   16, 16, 0.05, 12, 32
-    # 16, 16, 0.05, 12, 64 ; due to smaller batch size would be better for input of new data
-    # 32, 16, 0.05, 8, 16
-    # 32, 64, 0.1, 16, 64
-    # ? 32, 32, 0.1, 12, 64
-    # ? 64, 16, 0.1, 12, 64
+#   16, 16, 0.05, 12, 32
+# 16, 16, 0.05, 12, 64 ; due to smaller batch size would be better for input of new data
+# 32, 16, 0.05, 8, 16
+# 32, 64, 0.1, 16, 64
+# ? 32, 32, 0.1, 12, 64
+# ? 64, 16, 0.1, 12, 64
 
+# GenreClassifier = GenreClassifier()
 
-# def main():
-#     X, y = data_prep()
-#     X_train, X_test, y_train, y_test = train_split(X, y)
-#     model = model_function()
-#     model_history = train_model(model, X_test, y_test, X_train, y_train)
-#     show_random_spectrogram(X, y, label_encoder=None)
-#     plot(model_history, model, X_test, y_test)
+def main():
+    this_model_history, this_model, this_X_test, this_y_test = GenreClassifier.run_classifier()
+    print("main")
+    # show_random_spectrogram(X, y, label_encoder=None)
+    # plot(model_history, model, X_test, y_test)
+    GenreClassifier.show_model_training(model_history_local=this_model_history, model=this_model, X_test_local=this_X_test,
+                                        y_test_local=this_y_test)
 
+# main()
