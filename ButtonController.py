@@ -8,141 +8,113 @@ import AudioController
 import threading
 import serial
 
-# Audio Controller object
-audio_controller = AudioController.AudioController(44100, 512)
+class ButtonController:
 
-# Variables for quadrant states (tracks if a quadrant is currently pressed)
-quadrant_states = {
-    "top_left": False,
-    "top_right": False,
-    "bottom_left": False,
-    "bottom_right": False,
-}
+    def __init__(self, com, baud, timeout):
 
-# Recording state tracking
-recording_active = False
-recording_timer = None
+        # Audio Controller object
+        self.audio_controller = AudioController.AudioController(44100, 512)
 
-# Define constants for Pygame visualization
-SCREEN_WIDTH = 600
-SCREEN_HEIGHT = 600
+        # Variables for quadrant states (tracks if a quadrant is currently pressed)
+        self.quadrant_states = {
+            "top_left": False,
+            "top_right": False,
+            "bottom_left": False,
+            "bottom_right": False,
+        }
 
-pygame.init()
-screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
-pygame.display.set_caption("Sensor Grid Visualization")
-clock = pygame.time.Clock()
+        # Recording state tracking
+        self.recording_active = False
+        self.recording_timer = None
 
-display_running = True
+        # Serial Setup - update COM port and baudrate to match Arduino
+        self.ser = serial.Serial(com, baud, timeout=timeout)  # CHANGE COM3 to whatever your Arduino is using
+    
+        self.in_game = False
 
-# Serial Setup - update COM port and baudrate to match Arduino
-ser = serial.Serial('COM8', 9600, timeout=0.1)  # CHANGE COM3 to whatever your Arduino is using
+    def set_in_game_true(self):
+        print('You are in game! Kick and Clap should be working.')
+        self.in_game = True
 
-def check_input(quadrant):
-    return np.any(quadrant)
-
-def draw_quad():
-    if quadrant_states["top_left"]:
-        pygame.draw.rect(screen, (255, 255, 255), [0, 0, SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2])
-    if quadrant_states["top_right"]:
-        pygame.draw.rect(screen, (255, 255, 255), [SCREEN_WIDTH / 2, 0, SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2])
-    if quadrant_states["bottom_left"]:
-        pygame.draw.rect(screen, (255, 255, 255), [0, SCREEN_HEIGHT / 2, SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2])
-    if quadrant_states["bottom_right"]:
-        pygame.draw.rect(screen, (255, 255, 255), [SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2, SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2])
-
-def start_recording():
-    global recording_active
-    if not recording_active:
-        print("Recording started.")
-        recording_timer = threading.Timer(8.0, stop_recording)
-        recording_timer.start()
-        recording_active = True
-
-def stop_recording():
-    global recording_active
-    global recording_timer
-    if recording_active:
-        print("Recording stopped.")
-        audio_controller.stop_recording_and_save(silence_duration=0)
-        recording_active = False
-        recording_timer = None
+    def set_in_game_false(self):
+        print('You are in the main menu! Kick and Clap should be off.')
+        self.in_game = False
 
 
-while display_running:
-    for event in pygame.event.get():
-        if event.type == pygame.QUIT:
-            display_running = False
+    def start_recording(self):
+        if not self.recording_active:
+            print("Recording started.")
+            self.recording_timer = threading.Timer(8.0, self.stop_recording)
+            self.recording_timer.start()
+            self.recording_active = True
 
-    # Serial input handling from Arduino
-    try:
-        serial_input = ser.readline().decode('utf-8').strip()
-        # print(f"Recording Timer: {recording_timer}")
+    def stop_recording(self):
+        if self.recording_active:
+            print("Recording stopped.")
+            self.audio_controller.stop_recording_and_save(silence_duration=0)
+            self.recording_active = False
+            self.recording_timer = None
 
-        any_quadrant_active = False
+    def handle_serial_input(self):
+        print(self.in_game)
+        # Serial input handling from Arduino
+        try:
+            serial_input = self.ser.readline().decode('utf-8').strip()
+            # print(f"Recording Timer: {recording_timer}")
 
-        if serial_input:
+            if serial_input:
 
-            if serial_input == "BL":
-                if not quadrant_states["bottom_left"]:
-                    print("Bottom Left Pressed!")
-                    audio_controller.play_kick()
-                    start_recording()
-                quadrant_states["bottom_left"] = True
-                any_quadrant_active = True
+                # If the top left button is pressed
+                if serial_input == "TL":
+                    # if not self.quadrant_states["top_left"]:
+                    self.quadrant_states["top_left"] = True
+                    return "TL"
+                else:
+                    self.quadrant_states["top_left"] = False
+
+                # If the top right button is pressed
+                if serial_input == "TR":
+                    # if not self.quadrant_states["top_right"]:
+                    self.quadrant_states["top_right"] = True
+                    return "TR"
+                else:
+                    self.quadrant_states["top_right"] = False
+
+                # If the bottom left button is pressed
+                if serial_input == "BL" and self.in_game:
+                    if not self.quadrant_states["bottom_left"]:
+                        self.audio_controller.play_kick()
+                        self.start_recording()
+                    self.quadrant_states["bottom_left"] = True
+                else:
+                    self.quadrant_states["bottom_left"] = False
+
+                # If the bottom right button is pressed
+                if serial_input == "BR" and self.in_game:
+                    if not self.quadrant_states["bottom_right"]:
+                        self.audio_controller.play_clap()
+                        self.start_recording()
+                    self.quadrant_states["bottom_right"] = True
+                else:
+                    self.quadrant_states["bottom_right"] = False
+
+            # # Handle recording timer based on activity
+            # print(f"Serial Input: {serial_input} First: {not any_quadrant_active} Second: {recording_active} Third: {recording_timer is None}")
+            # if not any_quadrant_active and recording_active and recording_timer is None:
+            #     print("No quadrant active. Stopping recording after delay.")
+
+            # elif any_quadrant_active and recording_timer is not None:
+            #     print("Activity detected. Cancelling stop timer.")
+            #     recording_timer.cancel()
+            #     recording_timer = None
+
+
             else:
-                quadrant_states["bottom_left"] = False
+                # Reset all quadrant states if no serial input
+                self.quadrant_states["bottom_left"] = False
+                self.quadrant_states["bottom_right"] = False
+                self.quadrant_states["top_left"] = False
+                self.quadrant_states["top_right"] = False
 
-            if serial_input == "BR":
-                if not quadrant_states["bottom_right"]:
-                    print("Bottom Right Pressed!")
-                    audio_controller.play_clap()
-                    start_recording()
-                quadrant_states["bottom_right"] = True
-                any_quadrant_active = True
-            else:
-                quadrant_states["bottom_right"] = False
-
-            if serial_input == "TL":
-                if not quadrant_states["top_left"]:
-                    print("Top Left Pressed!")
-                quadrant_states["top_left"] = True
-                any_quadrant_active = True
-            else:
-                quadrant_states["top_left"] = False
-
-            if serial_input == "TR":
-                if not quadrant_states["top_right"]:
-                    print("Top Right Pressed!")
-                quadrant_states["top_right"] = True
-                any_quadrant_active = True
-            else:
-                quadrant_states["top_right"] = False
-
-        # # Handle recording timer based on activity
-        # print(f"Serial Input: {serial_input} First: {not any_quadrant_active} Second: {recording_active} Third: {recording_timer is None}")
-        # if not any_quadrant_active and recording_active and recording_timer is None:
-        #     print("No quadrant active. Stopping recording after delay.")
-
-        # elif any_quadrant_active and recording_timer is not None:
-        #     print("Activity detected. Cancelling stop timer.")
-        #     recording_timer.cancel()
-        #     recording_timer = None
-
-
-        else:
-            # Reset all quadrant states if no serial input
-            quadrant_states["bottom_left"] = False
-            quadrant_states["bottom_right"] = False
-            quadrant_states["top_left"] = False
-            quadrant_states["top_right"] = False
-
-    except Exception as e:
-        print(f"Serial error: {e}")
-
-    screen.fill((0, 0, 0))
-    draw_quad()
-
-    clock.tick(120)
-    pygame.display.flip()
-
-pygame.quit()
+        except Exception as e:
+            print(f"Serial error: {e}")

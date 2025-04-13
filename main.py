@@ -2,10 +2,17 @@ import keras
 import numpy as np
 import pygame, sys
 from matplotlib import pyplot as plt
-
+import serial
 from game import Game
 from assets.button import Button
 from GenreClassifier import GenreClassifier
+from ButtonController import ButtonController
+
+serial_com = 'COM8'
+serial_baud = 9600
+serial_timeout = 0.1
+
+button_controller = ButtonController(serial_com, serial_baud, serial_timeout)
 
 pygame.init()
 
@@ -15,39 +22,53 @@ BG = pygame.image.load("assets/glow.jpg")
 game = Game(None)
 clock = pygame.time.Clock()
 genre_classifier = GenreClassifier()
-local_path = "/Users/kveen/Documents/GitHub/Hands_On_Project_G4/saved_models/model1.keras"
+local_path = "saved_models/model1.keras"
 model = None
-
-
 
 def get_font(size):  # Returns Press-Start-2P in the desired size
     return pygame.font.Font("assets/Courier_New.ttf", size)
 
-
 def get_title_font(size):
     return pygame.font.Font("assets/shagade.ttf", size)
 
-
 def play():
     game.start_game(SCREEN)
+    button_controller.set_in_game_true()
 
     while True:
-        key = pygame.key.get_pressed()
+
+        input = button_controller.handle_serial_input()
+
         game.update_game(SCREEN)
+
+        # Handle input for top left/right buttons
+        # Top left handles: play
+        # Top right handle: going back
+        if input == "TL":
+            print("Top Left Pressed!")
+            play()
+
+        if input == "TR":
+            print("Top Right Pressed!")
+            main_menu()
 
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 pygame.quit()
                 sys.exit()
-            if key[pygame.K_u]:
-                main_menu()
 
         pygame.display.update()
 
 
 def main_menu():
+    button_controller.set_in_game_false()
+
     while True:
+
+        input = button_controller.handle_serial_input()
+
         key = pygame.key.get_pressed()
+
         SCREEN.blit(BG, (0, 0))
 
         MENU_MOUSE_POS = pygame.mouse.get_pos()
@@ -63,16 +84,16 @@ def main_menu():
         SCREEN.blit(MENU_TEXT, MENU_RECT)
 
         for button in [PLAY_BUTTON, QUIT_BUTTON]:
-            button.changeColor(MENU_MOUSE_POS)
             button.update(SCREEN)
+        
+        if input == "TL":
+            play()
+        if input == "TR":
+            pygame.quit()
+            sys.exit()
 
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
-                pygame.quit()
-                sys.exit()
-            if key[pygame.K_u]:
-                play()
-            if key[pygame.K_i]:
                 pygame.quit()
                 sys.exit()
 
@@ -91,9 +112,7 @@ if __name__ == '__main__':
 
     # model_history, model_trained, X_test, y_test = genre_classifier.run_classifier()
     # save_model(model_trained)
-    input("Press Enter to continue...")
     main_menu()
-
 
 # def prediction_genre():
 #     predicted_genre = genre_classifier.predict_file("assets/BossaNovaOffset_Seed5.wav")
