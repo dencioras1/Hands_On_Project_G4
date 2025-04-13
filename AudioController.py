@@ -7,8 +7,8 @@ import threading
 class AudioController:
     def __init__(self, freq, buff):
         pygame.mixer.init(frequency=freq, buffer=buff)
-        self.kick_sample = pygame.mixer.Sound('Audio/Samples/Kick.wav')
-        self.clap_sample = pygame.mixer.Sound('Audio/Samples/Clap.wav')
+        self.kick_sample = pygame.mixer.Sound('assets/Samples/Kick.wav')
+        self.clap_sample = pygame.mixer.Sound('assets/Samples/Clap.wav')
         self.recording = False
         self.recorded_audio = []
         self.sample_rate = freq
@@ -33,8 +33,9 @@ class AudioController:
                 callback=self._callback,
                 device=10  # Change this if needed
             )
-            self.stream.start()
+
             print("Audio stream started.")
+            self.stream.start()
 
     def _callback(self, indata, frames, time, status):
         if status:

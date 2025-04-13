@@ -6,12 +6,13 @@ import pygame, sys
 from Animation import Animation
 from GenreClassifier import GenreClassifier
 from assets.button import Button
+
 moving_sprites = pygame.sprite.Group()
 animation = Animation(640, 260, "assets/Animations/loading")
 moving_sprites.add(animation)
 clock = pygame.time.Clock()
-genre_classification = GenreClassifier()
-local_path = "saved_models/model1.keras"
+genre_classifier = GenreClassifier()
+
 pygame.mixer.init()
 pygame.init()
 
@@ -22,20 +23,21 @@ class Game:
         self.genre = genre
         self.classification = None
         self.SCREEN = None
-        self.current_genre_number = 0
+        self.current_genre_number = 2
         self.current_genre = None
         self.base_path = "Audio"
+        self.in_game = False
+        self.classified_values_output = None
 
     def get_font(self, size):  # Returns Press-Start-2P in the desired size
         return pygame.font.Font("assets/Courier_New.ttf", size)
 
-    def get_model(self):
-        return keras.models.load_model(local_path)
-
-    def start_game(self, SCREEN):
+    def start_introduction(self, SCREEN):
         # start at the first genre (0)
-        self.current_genre = genre_classification.labels[self.current_genre_number]
+        self.current_genre = genre_classifier.labels[self.current_genre_number]
         genre_path = os.path.join(self.base_path, self.current_genre)
+
+        in_game = True
 
         first_wav = None
         for file in os.listdir(genre_path):
@@ -51,7 +53,8 @@ class Game:
         while pygame.mixer.music.get_busy():
             SCREEN.fill("black")
             animation.is_animating = True
-            PLAY_TEXT = pygame.font.Font("assets/Courier_New.ttf", 45).render(f"This is the genre: {self.current_genre}", True,
+            PLAY_TEXT = pygame.font.Font("assets/Courier_New.ttf", 45).render(f"This is the genre: {self.current_genre}"
+                                                                              , True,
                                                                               "White")
             PLAY_RECT = PLAY_TEXT.get_rect(center=(640, 160))
             SCREEN.blit(PLAY_TEXT, PLAY_RECT)
@@ -67,40 +70,44 @@ class Game:
         else:
             self.current_genre_number += 1
 
-
-
-    def classification(self, file_path):
-        model = self.get_model()
-        predicted_genre = genre_classification.predict_file(model=model, file_path=file_path)
-
-    def update_game(self, SCREEN):
-        key = pygame.key.get_pressed()
-
+    def update_screen(self, screen_size, ingame):
+        screen_size.fill("black")
         PLAY_TEXT = pygame.font.Font("assets/Courier_New.ttf", 60).render(f"Your turn to try: {self.current_genre}",
                                                                           True,
                                                                           "White")
         PLAY_RECT = PLAY_TEXT.get_rect(center=(640, 160))
-        SCREEN.blit(PLAY_TEXT, PLAY_RECT)
+        screen_size.blit(PLAY_TEXT, PLAY_RECT)
 
-        # get input from TSP
+        # Time to try it >> self.recording = True
+        if not ingame:
+            screen_size.fill("black")
 
-        # classify it
+            self.genre_switch(self.current_genre, screen_size)
 
+            self.show_classification(screen=screen_size)
 
-        PLAY_BACK = Button(image=None, pos=(320, 650),
-                           text_input="MENU", font=self.get_font(60), base_color="White", hovering_color="#74b8ab")
-        QUIT = Button(image=None, pos=(960, 650),
-                           text_input="QUIT", font=self.get_font(60), base_color="White", hovering_color="#74b8ab")
+            PLAY_BACK = Button(image=None, pos=(320, 650),
+                               text_input="AGAIN", font=self.get_font(60), base_color="White", hovering_color="#74b8ab")
+            QUIT = Button(image=None, pos=(960, 650),
+                          text_input="MENU", font=self.get_font(60), base_color="White", hovering_color="#74b8ab")
 
-        PLAY_BACK.update(SCREEN)
-        QUIT.update(SCREEN)
+            PLAY_BACK.update(screen_size)
+            QUIT.update(screen_size)
 
-        if key[pygame.K_i]:
-            pygame.quit()
-            sys.exit()
+    def classify_input(self):
+        genre_classifier.load_model()
+        r1, r2 = genre_classifier.predict_file("output.wav")
+        self.classification = r1
+        self.classified_values_output = r2
 
+    def show_classification(self, screen):
+        font_info = pygame.font.Font("assets/Courier_New.ttf", 25)
+        text = f"{self.current_genre} is looking like {self.classification}"
+        final_text = font_info.render(text, True, "White")
+        class_rect = final_text.get_rect(center=(640, 500))
+        screen.blit(final_text, class_rect)
 
-    def genre_switch(self, genre):
+    def genre_switch(self, genre, screen_size):
         # Information from https://en.wikipedia.org/wiki/Main_Page
         string_text = ""
         artists = ""
@@ -126,7 +133,7 @@ class Game:
                           "among lower and working-class people from the inner city."
             artists = "Yellowman, Sean Paul, Rihanna"
 
-        elif genre == "Dnb":
+        elif genre == "DnB":
             string_text = "also known as Drum and Bass a genre of electronic dance music with fast beats which grew " \
                           "out of the UK's jungle scene" \
                           "in the 1990s, with diverse influences from for example Jamaican dub and reggae this genre " \
@@ -158,14 +165,36 @@ class Game:
             artists = "DJ Nelson, Daddy Yankee, Don Omar"
 
         if string_text != "":
-            INFO_TEXT = pygame.font.Font("assets/Courier_New.ttf", 30).render((self.current_genre + ": " +
-                                                                               string_text), True,
-                                                                              "White")
-            ARTIST_TEXT = pygame.font.Font("assets/Courier_New.ttf", 15).render("Artists using this genre include:"
-                                                                                + artists, True,
-                                                                                "White")
-            return INFO_TEXT, ARTIST_TEXT
-        return None
+            font_info = pygame.font.Font("assets/Courier_New.ttf", 20)
+            font_artist = pygame.font.Font("assets/Courier_New.ttf", 15)
 
+            # Wrap the info text to fit within 1000 pixels
+            wrapped_lines = self.wrap_text(self.current_genre + ": " + string_text, font_info, max_width=1000)
 
+            # Render and blit each line with spacing
+            start_y = 120
+            for i, line in enumerate(wrapped_lines):
+                rendered_line = font_info.render(line, True, "White")
+                line_rect = rendered_line.get_rect(center=(640, start_y + i * 30))
+                screen_size.blit(rendered_line, line_rect)
 
+            # Add the artist line a bit further down
+            artist_text = "Artists using this genre include: " + artists
+            ARTIST_TEXT = font_artist.render(artist_text, True, "White")
+            ARTIST_RECT = ARTIST_TEXT.get_rect(center=(640, start_y + len(wrapped_lines) * 30 + 20))
+            self.SCREEN.blit(ARTIST_TEXT, ARTIST_RECT)
+
+    def wrap_text(self, text, font, max_width):
+        words = text.split(' ')
+        lines = []
+        current_line = ""
+
+        for word in words:
+            test_line = current_line + word + " "
+            if font.size(test_line)[0] <= max_width:
+                current_line = test_line
+            else:
+                lines.append(current_line.strip())
+                current_line = word + " "
+        lines.append(current_line.strip())
+        return lines

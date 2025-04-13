@@ -27,9 +27,13 @@ class ButtonController:
         self.recording_active = False
         self.recording_timer = None
 
+        # Has recorded Tracker
+        self.has_recorded = False
+
         # Serial Setup - update COM port and baudrate to match Arduino
         self.ser = serial.Serial(com, baud, timeout=timeout)  # CHANGE COM3 to whatever your Arduino is using
-    
+
+
         self.in_game = False
 
     def set_in_game_true(self):
@@ -54,6 +58,7 @@ class ButtonController:
             self.audio_controller.stop_recording_and_save(silence_duration=0)
             self.recording_active = False
             self.recording_timer = None
+            self.has_recorded = True
 
     def handle_serial_input(self):
 
@@ -118,3 +123,11 @@ class ButtonController:
 
         except Exception as e:
             print(f"Serial error: {e}")
+
+    def get_has_recorded_and_saved(self):
+        if self.has_recorded:
+            # Reset state for next playthrough
+            self.has_recorded = False
+            return True
+        else:
+            return False
