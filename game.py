@@ -39,7 +39,7 @@ class Game:
 
         first_wav = None
         for file in os.listdir(genre_path):
-            if file.endswith(".wav"):
+            if file.endswith("Quantized.wav"):
                 first_wav = os.path.join(genre_path, file)
                 break  # Stop after the first .wav file
 

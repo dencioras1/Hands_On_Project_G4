@@ -18,7 +18,7 @@ import random
 class GenreClassifier:
     def __init__(self):
         self.label_encoder = None
-        self.base_dir = "/Users/kveen/Documents/GitHub/Hands_On_Project_G4/Audio"
+        self.base_dir = "Audio"
         self.genres = sorted(os.listdir(self.base_dir))
         self.labels = ["BoomBap", "BossaNova", "BrazilianFunk", "Dancehall", "DnB", "Dubstep", "House", "JerseyClub",
                        "Reggaeton", "Trap"]
