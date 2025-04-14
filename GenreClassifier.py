@@ -22,6 +22,8 @@ class GenreClassifier:
         self.genres = sorted(os.listdir(self.base_dir))
         self.labels = ["BoomBap", "BossaNova", "BrazilianFunk", "Dancehall", "DnB", "Dubstep", "House", "JerseyClub",
                        "Reggaeton", "Trap"]
+        self.model_path = "saved_models/model1.keras"
+        self.model = None
 
     keras.utils.set_random_seed(42)
 
@@ -95,7 +97,7 @@ class GenreClassifier:
 
     def train_split(self, X, y):
         X = X[..., np.newaxis]
-        X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_state=42)
+        X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
         return X_train, X_test, y_train, y_test
 
     def model_function(self):
@@ -112,7 +114,7 @@ class GenreClassifier:
 
             keras.layers.Flatten(),
             keras.layers.Dense(128, activation='relu'),
-            keras.layers.Dense(10, activation='softmax')
+            keras.layers.Dense(10, activation='sigmoid')
         ])
         return model
 
@@ -148,13 +150,20 @@ class GenreClassifier:
 
         return model_history, model, X_test, y_test
 
-    def predict_file(self, model, file_path):
+    def load_model(self):
+        if self.model is None:
+            print("Loading model")
+            self.model = keras.models.load_model(self.model_path)
+        else:
+            print("We already have a model dumbass")
+
+    def predict_file(self, file_path):
         spectrogram = self.extract_mel_spectrogram(file_path)
         spectrogram = (spectrogram - np.mean(spectrogram)) / (np.std(spectrogram) + 1e-7)
         spectrogram = spectrogram[np.newaxis, ..., np.newaxis]
-        prediction = model.predict(spectrogram)
+        prediction = self.model.predict(spectrogram)
         index = np.argmax(prediction, axis=1)[0]
-        return self.labels[index]
+        return self.labels[index], prediction
 
     def show_model_training(self, model_history_local, model, X_test_local, y_test_local):
         # Plot Training and Validation Loss
@@ -212,8 +221,8 @@ class GenreClassifier:
 
 # Best values:
 #   16, 16, 0.05, 12, 32
-# 16, 16, 0.05, 12, 64 ; due to smaller batch size would be better for input of new data
-# 32, 16, 0.05, 8, 16
+# 16, 16, 0.05, 12, 64
+# 32, 16, 0.05, 8, 16 best one
 # 32, 64, 0.1, 16, 64
 # ? 32, 32, 0.1, 12, 64
 # ? 64, 16, 0.1, 12, 64
