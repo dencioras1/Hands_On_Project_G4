@@ -17,6 +17,7 @@ pygame.mixer.init()
 pygame.init()
 
 
+
 class Game:
 
     def __init__(self, genre):
@@ -28,6 +29,7 @@ class Game:
         self.base_path = "Audio"
         self.in_game = False
         self.classified_values_output = None
+        self.BGA_game = pygame.image.load("assets/BGA.jpg")
 
     def get_font(self, size):  # Returns Press-Start-2P in the desired size
         return pygame.font.Font("assets/Courier_New.ttf", size)
@@ -51,7 +53,7 @@ class Game:
 
         # wait length of file
         while pygame.mixer.music.get_busy():
-            SCREEN.fill("black")
+            SCREEN.fill("Black")
             animation.is_animating = True
             PLAY_TEXT = pygame.font.Font("assets/Courier_New.ttf", 45).render(f"This is the genre: {self.current_genre}"
                                                                               , True,
@@ -80,16 +82,17 @@ class Game:
 
         # Time to try it >> self.recording = True
         if not ingame:
-            screen_size.fill("black")
+            screen_size.blit(self.BGA_game, (0, -40))
 
             self.genre_switch(self.current_genre, screen_size)
 
             self.show_classification(screen=screen_size)
 
             PLAY_BACK = Button(image=None, pos=(320, 650),
-                               text_input="AGAIN", font=self.get_font(60), base_color="White", hovering_color="#74b8ab")
+                               text_input="AGAIN", font=self.get_font(60), base_color="#2e4e3d",
+                               hovering_color="#74b8ab")
             QUIT = Button(image=None, pos=(960, 650),
-                          text_input="MENU", font=self.get_font(60), base_color="White", hovering_color="#74b8ab")
+                          text_input="MENU", font=self.get_font(60), base_color="#2e4e3d", hovering_color="#74b8ab")
 
             PLAY_BACK.update(screen_size)
             QUIT.update(screen_size)
@@ -103,7 +106,7 @@ class Game:
     def show_classification(self, screen):
         font_info = pygame.font.Font("assets/Courier_New.ttf", 25)
         text = f"{self.current_genre} is looking like {self.classification}"
-        final_text = font_info.render(text, True, "White")
+        final_text = font_info.render(text, True, "Black")
         class_rect = final_text.get_rect(center=(640, 500))
         screen.blit(final_text, class_rect)
 
@@ -165,8 +168,8 @@ class Game:
             artists = "DJ Nelson, Daddy Yankee, Don Omar"
 
         if string_text != "":
-            font_info = pygame.font.Font("assets/Courier_New.ttf", 20)
-            font_artist = pygame.font.Font("assets/Courier_New.ttf", 15)
+            font_info = pygame.font.Font("assets/Courier_New.ttf", 25)
+            font_artist = pygame.font.Font("assets/Courier_New.ttf", 20)
 
             # Wrap the info text to fit within 1000 pixels
             wrapped_lines = self.wrap_text(self.current_genre + ": " + string_text, font_info, max_width=1000)
@@ -174,13 +177,13 @@ class Game:
             # Render and blit each line with spacing
             start_y = 120
             for i, line in enumerate(wrapped_lines):
-                rendered_line = font_info.render(line, True, "White")
+                rendered_line = font_info.render(line, True, "Black")
                 line_rect = rendered_line.get_rect(center=(640, start_y + i * 30))
                 screen_size.blit(rendered_line, line_rect)
 
             # Add the artist line a bit further down
             artist_text = "Artists using this genre include: " + artists
-            ARTIST_TEXT = font_artist.render(artist_text, True, "White")
+            ARTIST_TEXT = font_artist.render(artist_text, True, "#2e4e3d")
             ARTIST_RECT = ARTIST_TEXT.get_rect(center=(640, start_y + len(wrapped_lines) * 30 + 20))
             self.SCREEN.blit(ARTIST_TEXT, ARTIST_RECT)
 
