@@ -56,7 +56,8 @@ class ButtonController:
             self.recording_timer = None
 
     def handle_serial_input(self):
-
+        print(self.recording_timer)
+        
         # Serial input handling from Arduino
         try:
             serial_input = self.ser.readline().decode('utf-8').strip()
