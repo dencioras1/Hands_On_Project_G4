@@ -8,7 +8,7 @@ from assets.button import Button
 from GenreClassifier import GenreClassifier
 from ButtonController import ButtonController
 
-serial_com = 'COM8'
+serial_com = '/dev/tty.usbmodem142101'
 serial_baud = 9600
 serial_timeout = 0.1
 
@@ -131,8 +131,7 @@ def main_menu():
 
 
 
-def save_model(model_local):
-    model_local.save(local_path)
+
 
 
 
