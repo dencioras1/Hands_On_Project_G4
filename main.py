@@ -8,7 +8,7 @@ from assets.button import Button
 from GenreClassifier import GenreClassifier
 from ButtonController import ButtonController
 
-serial_com = '/dev/tty.usbmodem142101'
+serial_com = 'COM8'
 serial_baud = 9600
 serial_timeout = 0.1
 
