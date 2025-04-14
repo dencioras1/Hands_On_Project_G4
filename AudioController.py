@@ -62,23 +62,10 @@ class AudioController:
                 if final_audio.ndim == 2 and final_audio.shape[1] == 2:
                     final_audio = np.mean(final_audio, axis=1)
 
-                final_audio = self.trim_silence(final_audio)
-                final_audio = self.normalize_audio(final_audio)
+                # final_audio = self.normalize_audio(final_audio)
 
             sf.write('output.wav', final_audio, self.sample_rate, subtype='FLOAT')
             print("Audio saved to output.wav")
-
-    def trim_silence(self, audio, threshold=0.01):
-        """Trim silence from the audio based on energy threshold."""
-        energy = np.abs(audio)
-        mask = energy > threshold
-        indices = np.where(mask)[0]
-
-        if len(indices) == 0:
-            print("No audio above threshold, returning original audio.")
-            return audio
-
-        return audio[indices[0]:indices[-1]+1]
 
     def normalize_audio(self, audio):
         """Normalize audio to the range of -1.0 to 1.0."""
