@@ -24,7 +24,7 @@ class Game:
         self.genre = genre
         self.classification = None
         self.SCREEN = None
-        self.current_genre_number = 2
+        self.current_genre_number = 1
         self.current_genre = None
         self.base_path = "Audio"
         self.in_game = False
@@ -101,14 +101,40 @@ class Game:
         genre_classifier.load_model()
         r1, r2 = genre_classifier.predict_file("output.wav")
         self.classification = r1
+        r2 = r2.flatten()
         self.classified_values_output = r2
+        print(self.classified_values_output)
 
     def show_classification(self, screen):
+        self.current_genre = genre_classifier.labels[self.current_genre_number]
+        percentage_actual = self.classified_values_output[self.current_genre_number]
+        genre_probs = list(zip(genre_classifier.labels, self.classified_values_output))
+        sorted_genres = sorted(genre_probs, key=lambda x: x[1], reverse=True)
+        # Create text strings
+        actual_line = f"{self.current_genre}: {percentage_actual * 100:.2f}%"
+        other_lines = [
+            f"{genre}: {prob * 100:.2f}%"
+            for genre, prob in sorted_genres
+            if genre != self.current_genre
+        ]
+
+        # Fonts
         font_info = pygame.font.Font("assets/Courier_New.ttf", 25)
-        text = f"{self.current_genre} is looking like {self.classification}"
-        final_text = font_info.render(text, True, "Black")
-        class_rect = final_text.get_rect(center=(640, 500))
-        screen.blit(final_text, class_rect)
+
+        # Background card
+        pygame.draw.rect(screen, (30, 30, 30), (200, 390, 500, 210), border_radius=10)
+        pygame.draw.rect(screen, (200, 200, 200), (200, 390, 500, 210), 2, border_radius=10)
+
+        # Render the actual genre line
+        final_text = font_info.render(actual_line, True, "White")
+        screen.blit(final_text, final_text.get_rect(topleft=(220, 400)))
+
+        # Render the next 3 genres
+        for i, line in enumerate(other_lines[:5]):
+            line_surface = font_info.render(line, True, "White")
+            screen.blit(line_surface, line_surface.get_rect(topleft=(220, 440 + i * 30)))
+
+
 
     def genre_switch(self, genre, screen_size):
         # Information from https://en.wikipedia.org/wiki/Main_Page
