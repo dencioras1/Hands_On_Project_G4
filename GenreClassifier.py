@@ -1,6 +1,6 @@
 import os
 import pickle
-
+import seaborn as sns
 import keras
 from keras import ops
 import librosa
@@ -10,6 +10,7 @@ from sklearn.preprocessing import LabelEncoder
 from sklearn.model_selection import train_test_split
 from keras import Sequential
 import tensorflow as tf
+from sklearn.metrics import confusion_matrix
 import matplotlib.pyplot as plt
 import librosa.display
 import random
@@ -120,7 +121,7 @@ class GenreClassifier:
 
     def train_model(self, model, X_test, y_test, X_train, y_train):
         # Set your hyperparameters
-        epochs = 8 # used to be 8  # Try different numbers 12
+        epochs = 8  # used to be 8  # Try different numbers 12
         batch_size = 16  # Try different sizes 128
         optimizer = "adam"  # Try different optimizers "adam"
         validation_split = 0.2  # Try different splits 0.2
@@ -192,6 +193,18 @@ class GenreClassifier:
         # Print test accuracy
         print("Test Accuracy:", test_accuracy)
 
+    def confusionmatrix(self, model, X_test, y_test):
+        # Confusion Matrix
+        plt.figure(figsize=(8, 6))
+        predictions = model.predict(X_test)
+        predicted_classes = np.argmax(predictions, axis=1)
+        conf_matrix = confusion_matrix(y_test, predicted_classes)
+
+        sns.heatmap(conf_matrix, annot=True, fmt="d")
+        plt.xlabel("Predicted")
+        plt.ylabel("True")
+        plt.title('Confusion Matrix')
+        plt.show()
 
 
 # def gridsearch():
@@ -227,14 +240,15 @@ class GenreClassifier:
 # ? 32, 32, 0.1, 12, 64
 # ? 64, 16, 0.1, 12, 64
 
-# GenreClassifier = GenreClassifier()
+GenreClassifier = GenreClassifier()
+
 
 def main():
     this_model_history, this_model, this_X_test, this_y_test = GenreClassifier.run_classifier()
-    print("main")
-    # show_random_spectrogram(X, y, label_encoder=None)
-    # plot(model_history, model, X_test, y_test)
-    GenreClassifier.show_model_training(model_history_local=this_model_history, model=this_model, X_test_local=this_X_test,
+    GenreClassifier.show_model_training(model_history_local=this_model_history, model=this_model,
+                                        X_test_local=this_X_test,
                                         y_test_local=this_y_test)
+    GenreClassifier.confusionmatrix(model=this_model, X_test=this_X_test, y_test=this_y_test)
 
-# main()
+
+main()
