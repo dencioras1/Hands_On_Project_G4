@@ -35,12 +35,12 @@ class Game:
         return pygame.font.Font("assets/Courier_New.ttf", size)
 
     def start_introduction(self, SCREEN):
-
         if self.current_genre_number == 9:
             self.current_genre_number = 0
         else:
             self.current_genre_number += 1
 
+        # start at the first genre (0)
         self.current_genre = genre_classifier.labels[self.current_genre_number]
         genre_path = os.path.join(self.base_path, self.current_genre)
 
