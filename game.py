@@ -35,7 +35,12 @@ class Game:
         return pygame.font.Font("assets/Courier_New.ttf", size)
 
     def start_introduction(self, SCREEN):
-        # start at the first genre (0)
+
+        if self.current_genre_number == 9:
+            self.current_genre_number = 0
+        else:
+            self.current_genre_number += 1
+
         self.current_genre = genre_classifier.labels[self.current_genre_number]
         genre_path = os.path.join(self.base_path, self.current_genre)
 
@@ -67,10 +72,6 @@ class Game:
 
         animation.is_animating = False
         SCREEN.fill("black")
-        if self.current_genre_number == 9:
-            self.current_genre_number = 0
-        else:
-            self.current_genre_number += 1
 
     def update_screen(self, screen_size, ingame):
         screen_size.fill("black")
