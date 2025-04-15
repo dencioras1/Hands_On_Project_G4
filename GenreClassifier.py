@@ -142,11 +142,7 @@ class GenreClassifier:
         return model
 
     def train_model(self, model, X_test, y_test, X_train, y_train):
-        # Set your hyperparameters
-        # epochs = 8  # used to be 8  # Try different numbers 12
-        # batch_size = 16  # Try different sizes 128
         optimizer = "adam"  # Try different optimizers "adam"
-        # validation_split = 0.2  # Try different splits 0.2
         early_stopping = EarlyStopping(
             monitor='val_loss',
             patience=5,
@@ -161,9 +157,6 @@ class GenreClassifier:
                                   validation_split=self.validation_split, callbacks=[early_stopping],
                                   verbose=1)
 
-        test_loss, test_accuracy = model.evaluate(X_test, y_test)
-
-        print("Test Accuracy:", test_accuracy)
         return model_history
 
     def run_prep(self):
@@ -176,11 +169,6 @@ class GenreClassifier:
         X_train, X_test, y_train, y_test = self.train_split(X, y)
         model = self.model_function()
         model_history = self.train_model(model, X_test, y_test, X_train, y_train)
-        # plot(model_history, model, X_test, y_test)
-        # model.save("saved_models/genre_model.h5")
-        # with open("saved_models/label_encoder.pkl", "wb") as f:
-        #     pickle.dump(self.label_encoder, f)
-
         return model_history, model, X_test, y_test
 
     def load_model(self):
@@ -238,7 +226,7 @@ class GenreClassifier:
         plt.title('Confusion Matrix')
         plt.show()
 
-GenreClassifier = GenreClassifier()
+# GenreClassifier = GenreClassifier()
 
 def grid_search_CNN():
     model, X_test, y_test, X_train, y_train = GenreClassifier.run_prep()
@@ -254,7 +242,7 @@ def grid_search_CNN():
                 GenreClassifier.batch_size = b
                 GenreClassifier.validation_split = c
                 model = GenreClassifier.model_function()
-                this_model_history = GenreClassifier.train_model(X_test, y_test, X_train, y_train)
+                this_model_history = GenreClassifier.train_model(model, X_test, y_test, X_train, y_train)
                 final_train_acc = this_model_history.history['accuracy'][-1]
                 final_val_acc = this_model_history.history['val_accuracy'][-1]
                 all_tr.append(final_train_acc)
@@ -303,7 +291,7 @@ def main():
     print(f"Final Training Accuracy: {final_train_acc:.4f}")
     print(f"Final Validation Accuracy: {final_val_acc:.4f}")
 
-    GenreClassifier.save_model(this_model)
+    # GenreClassifier.save_model(this_model)
 
     GenreClassifier.show_model_training(model_history_local=this_model_history, model=this_model,
                                         X_test_local=this_X_test,
@@ -311,4 +299,4 @@ def main():
     GenreClassifier.confusionmatrix(model=this_model, X_test=this_X_test, y_test=this_y_test)
 
 
-main()
+# main()

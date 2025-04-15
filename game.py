@@ -63,7 +63,7 @@ class Game:
             PLAY_TEXT = pygame.font.Font("assets/Courier_New.ttf", 45).render(f"This is the genre: {self.current_genre}"
                                                                               , True,
                                                                               "White")
-            PLAY_RECT = PLAY_TEXT.get_rect(center=(640, 160))
+            PLAY_RECT = PLAY_TEXT.get_rect(center=(960, 540))
             SCREEN.blit(PLAY_TEXT, PLAY_RECT)
 
             moving_sprites.draw(SCREEN)
@@ -78,21 +78,27 @@ class Game:
         PLAY_TEXT = pygame.font.Font("assets/Courier_New.ttf", 60).render(f"Your turn to try: {self.current_genre}",
                                                                           True,
                                                                           "White")
-        PLAY_RECT = PLAY_TEXT.get_rect(center=(640, 160))
+        PLAY_RECT = PLAY_TEXT.get_rect(center=(960, 240))
         screen_size.blit(PLAY_TEXT, PLAY_RECT)
+        # Smaller text setup
+        INFO_FONT = pygame.font.Font("assets/Courier_New.ttf", 30)
+        INFO_TEXT = INFO_FONT.render("It will start recording from your first input for 8 seconds", True, "White")
+        INFO_RECT = INFO_TEXT.get_rect(center=(960, 290))
+
+        screen_size.blit(INFO_TEXT, INFO_RECT)
 
         # Time to try it >> self.recording = True
         if not ingame:
-            screen_size.blit(self.BGA_game, (0, -40))
+            screen_size.blit(self.BGA_game, (0, 0))
 
             self.genre_switch(self.current_genre, screen_size)
 
             self.show_classification(screen=screen_size)
 
-            PLAY_BACK = Button(image=None, pos=(320, 650),
-                               text_input="AGAIN", font=self.get_font(60), base_color="#2e4e3d",
-                               hovering_color="#74b8ab")
-            QUIT = Button(image=None, pos=(960, 650),
+            PLAY_BACK = Button(image=None, pos=(480, 975),
+                               text_input="AGAIN", font=self.get_font(60),
+                               base_color="#2e4e3d", hovering_color="#74b8ab")
+            QUIT = Button(image=None, pos=(1440, 975),
                           text_input="MENU", font=self.get_font(60), base_color="#2e4e3d", hovering_color="#74b8ab")
 
             PLAY_BACK.update(screen_size)
@@ -123,17 +129,17 @@ class Game:
         font_info = pygame.font.Font("assets/Courier_New.ttf", 25)
 
         # Background card
-        pygame.draw.rect(screen, (30, 30, 30), (200, 390, 500, 150), border_radius=10)
-        pygame.draw.rect(screen, (200, 200, 200), (200, 390, 500, 150), 2, border_radius=10)
+        pygame.draw.rect(screen, (30, 30, 30), (300, 585, 750, 225), border_radius=10)
+        pygame.draw.rect(screen, (200, 200, 200), (300, 585, 750, 225), 2, border_radius=10)
 
         # Render the actual genre line
         final_text = font_info.render(actual_line, True, "White")
-        screen.blit(final_text, final_text.get_rect(topleft=(220, 400)))
+        screen.blit(final_text, final_text.get_rect(topleft=(330, 600)))
 
         # Render the next 3 genres
         for i, line in enumerate(other_lines[:3]):
             line_surface = font_info.render(line, True, "White")
-            screen.blit(line_surface, line_surface.get_rect(topleft=(220, 440 + i * 30)))
+            screen.blit(line_surface, line_surface.get_rect(topleft=(330, 660 + i * 45)))
 
     def genre_switch(self, genre, screen_size):
         # Information from https://en.wikipedia.org/wiki/Main_Page
@@ -209,13 +215,13 @@ class Game:
             start_y = 120
             for i, line in enumerate(wrapped_lines):
                 rendered_line = font_info.render(line, True, "Black")
-                line_rect = rendered_line.get_rect(center=(640, start_y + i * 30))
+                line_rect = rendered_line.get_rect(center=(960, start_y + i * 45))
                 screen_size.blit(rendered_line, line_rect)
 
             # Add the artist line a bit further down
             artist_text = "Artists using this genre include: " + artists
             ARTIST_TEXT = font_artist.render(artist_text, True, "#2e4e3d")
-            ARTIST_RECT = ARTIST_TEXT.get_rect(center=(640, start_y + len(wrapped_lines) * 30 + 20))
+            ARTIST_RECT = ARTIST_TEXT.get_rect(center=(960, start_y + len(wrapped_lines) * 45 + 30))
             self.SCREEN.blit(ARTIST_TEXT, ARTIST_RECT)
 
     def wrap_text(self, text, font, max_width):
