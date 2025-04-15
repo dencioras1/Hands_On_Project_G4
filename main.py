@@ -8,15 +8,15 @@ from assets.button import Button
 from GenreClassifier import GenreClassifier
 from ButtonController import ButtonController
 
-serial_com = '/dev/tty.usbmodem142101'
-serial_baud = 9600
-serial_timeout = 0.1
+serial_com = 'COM8'
+serial_baud = 115200
+serial_timeout = 0.01
 
 button_controller = ButtonController(serial_com, serial_baud, serial_timeout)
 
 pygame.init()
 
-SCREEN = pygame.display.set_mode((1280, 720))
+SCREEN = pygame.display.set_mode((1920, 1080), pygame.FULLSCREEN)
 pygame.display.set_caption("Menu")
 BG = pygame.image.load("assets/glow.jpg")
 game = Game(None)
@@ -42,7 +42,6 @@ def play():
         game.update_screen(SCREEN, True)
         pygame.display.update()
 
-
         input = button_controller.handle_serial_input()
 
         # Check if game is done, ie there is a recording
@@ -52,7 +51,7 @@ def play():
 
 
 
-    game.classify_input()
+    # game.classify_input()
     # Post-Game Loop - Show results and give option to restart/menu
 
     button_controller.set_in_game_false()

@@ -14,7 +14,7 @@ void setup() {
   pinMode(KICK_PIN, INPUT_PULLUP);
   pinMode(CLAP_PIN, INPUT_PULLUP);
 
-  Serial.begin(9600);
+  Serial.begin(115200);
 }
 
 void loop() {

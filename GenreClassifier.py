@@ -229,9 +229,6 @@ class GenreClassifier:
         plt.title('Confusion Matrix')
         plt.show()
 
-
-
-
 # GenreClassifier = GenreClassifier()
 
 def grid_search_CNN():
@@ -282,12 +279,13 @@ def main():
 
 
 
-    # spect = GenreClassifier.extract_mel_spectrogram("output.wav")
-    # spect2 = GenreClassifier.extract_mel_spectrogram("Audio/BrazilianFunk/BrazilianFunkQuantized.wav")
-    # spect3 = GenreClassifier.extract_mel_spectrogram("Audio/House/HouseOffset #3.wav")
-    # GenreClassifier.show_spectogram(spect)
-    # GenreClassifier.show_spectogram(spect2)
-    # GenreClassifier.show_spectogram(spect3)
+    spect = GenreClassifier.extract_mel_spectrogram("output.wav")
+    spect2 = GenreClassifier.extract_mel_spectrogram("Audio/BrazilianFunk/BrazilianFunkQuantized.wav")
+    spect3 = GenreClassifier.extract_mel_spectrogram("Audio/House/HouseOffset #3.wav")
+    GenreClassifier.show_spectogram(spect)
+    GenreClassifier.show_spectogram(spect2)
+    GenreClassifier.show_spectogram(spect3)
+
     # this_model_history, this_model, this_X_test, this_y_test = GenreClassifier.run_classifier()
     # GenreClassifier.save_model(this_model)
 
