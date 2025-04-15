@@ -29,6 +29,8 @@ class GenreClassifier:
         self.epochs = None
         self.batch_size = None
         self.validation_split = None
+        self.first = 0
+
 
     keras.utils.set_random_seed(42)
 
@@ -125,14 +127,16 @@ class GenreClassifier:
             keras.layers.Conv2D(32, (3, 3), activation='relu'),
             keras.layers.BatchNormalization(),
             keras.layers.MaxPooling2D(2, 2),
-            keras.layers.Dropout(0.05),
+            keras.layers.Dropout(0.1),
+
+            keras.layers.Dense(32, activation='relu'),
 
             keras.layers.Conv2D(16, (3, 3), activation='relu'),
             keras.layers.BatchNormalization(),
             keras.layers.MaxPooling2D(2, 2),
 
             keras.layers.Flatten(),
-            keras.layers.Dense(128, activation='relu'),
+            keras.layers.Dense(64, activation='relu'),
             keras.layers.Dense(10, activation='softmax')
         ])
         return model
@@ -145,7 +149,7 @@ class GenreClassifier:
         # validation_split = 0.2  # Try different splits 0.2
         early_stopping = EarlyStopping(
             monitor='val_loss',
-            patience=3,
+            patience=5,
             restore_best_weights=True
         )
 
@@ -161,6 +165,11 @@ class GenreClassifier:
 
         print("Test Accuracy:", test_accuracy)
         return model_history
+
+    def run_prep(self):
+        X, y = self.data_prep()
+        X_train, X_test, y_train, y_test = self.train_split(X, y)
+        return X_test, y_test, X_train, y_train
 
     def run_classifier(self):
         X, y = self.data_prep()
@@ -232,7 +241,8 @@ class GenreClassifier:
 GenreClassifier = GenreClassifier()
 
 def grid_search_CNN():
-    epoch_list = (6, 8, 10)
+    model, X_test, y_test, X_train, y_train = GenreClassifier.run_prep()
+    epoch_list = (10, 12, 16)
     batch_list = (16, 32, 48, 64)
     validation_list = (0.3, 0.2, 0.1)
     all_val = []
@@ -243,11 +253,12 @@ def grid_search_CNN():
                 GenreClassifier.epochs = a
                 GenreClassifier.batch_size = b
                 GenreClassifier.validation_split = c
-                print(f"epochs: {a}, batch size: {b}, validation split: {c}")
-                this_model_history, this_model, this_X_test, this_y_test = GenreClassifier.run_classifier()
+                model = GenreClassifier.model_function()
+                this_model_history = GenreClassifier.train_model(X_test, y_test, X_train, y_train)
                 final_train_acc = this_model_history.history['accuracy'][-1]
                 final_val_acc = this_model_history.history['val_accuracy'][-1]
                 all_tr.append(final_train_acc)
+                print(f"epochs: {a}, batch size: {b}, validation split: {c}")
                 print(f"Final Training Accuracy: {final_train_acc:.4f}")
                 all_val.append(final_val_acc)
                 print(f"Final Validation Accuracy: {final_val_acc:.4f}")
@@ -258,13 +269,13 @@ def grid_search_CNN():
     print(f"Best testing scores: {all_tr}")
 
 def main():
-    # GenreClassifier.epochs = 12
-    # GenreClassifier.batch_size = 48
-    # GenreClassifier.validation_split = 0.1
+    GenreClassifier.epochs = 6
+    GenreClassifier.batch_size = 32
+    GenreClassifier.validation_split = 0.1
 
 
     keras.utils.set_random_seed(42)
-    grid_search_CNN()
+    # grid_search_CNN()
 
     # epochs: 8, batch size: 32, validation split: 0.1
     # Test Accuracy: 0.9166666865348816
@@ -279,20 +290,25 @@ def main():
 
     # epochs: 6, batch size: 32, validation split: 0.1
 
-    # spect = GenreClassifier.extract_mel_spectrogram("output.wav")
-    # spect2 = GenreClassifier.extract_mel_spectrogram("Audio/BrazilianFunk/BrazilianFunkQuantized.wav")
-    # spect3 = GenreClassifier.extract_mel_spectrogram("Audio/House/HouseOffset #3.wav")
+    spect = GenreClassifier.extract_mel_spectrogram("output.wav")
+    spect2 = GenreClassifier.extract_mel_spectrogram("Audio/House/HouseController4.wav")
+    spect3 = GenreClassifier.extract_mel_spectrogram("Audio/House/HouseOffset #3.wav")
     # GenreClassifier.show_spectogram(spect)
     # GenreClassifier.show_spectogram(spect2)
     # GenreClassifier.show_spectogram(spect3)
 
-    # this_model_history, this_model, this_X_test, this_y_test = GenreClassifier.run_classifier()
-    # GenreClassifier.save_model(this_model)
+    this_model_history, this_model, this_X_test, this_y_test = GenreClassifier.run_classifier()
+    final_train_acc = this_model_history.history['accuracy'][-1]
+    final_val_acc = this_model_history.history['val_accuracy'][-1]
+    print(f"Final Training Accuracy: {final_train_acc:.4f}")
+    print(f"Final Validation Accuracy: {final_val_acc:.4f}")
 
-    # GenreClassifier.show_model_training(model_history_local=this_model_history, model=this_model,
-    #                                     X_test_local=this_X_test,
-    #                                     y_test_local=this_y_test)
-    # GenreClassifier.confusionmatrix(model=this_model, X_test=this_X_test, y_test=this_y_test)
+    GenreClassifier.save_model(this_model)
+
+    GenreClassifier.show_model_training(model_history_local=this_model_history, model=this_model,
+                                        X_test_local=this_X_test,
+                                        y_test_local=this_y_test)
+    GenreClassifier.confusionmatrix(model=this_model, X_test=this_X_test, y_test=this_y_test)
 
 
 main()
