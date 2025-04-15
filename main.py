@@ -52,9 +52,6 @@ def play():
 
 
 
-    # here we can process, but mke sure to start loading animation so the user knows
-
-        #step 1, tell game object it time to process user output
     game.classify_input()
     # Post-Game Loop - Show results and give option to restart/menu
 

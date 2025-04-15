@@ -232,7 +232,7 @@ class GenreClassifier:
 
 
 
-GenreClassifier = GenreClassifier()
+# GenreClassifier = GenreClassifier()
 
 def grid_search_CNN():
     epoch_list = (6, 8, 10)
@@ -288,13 +288,13 @@ def main():
     # GenreClassifier.show_spectogram(spect)
     # GenreClassifier.show_spectogram(spect2)
     # GenreClassifier.show_spectogram(spect3)
-    this_model_history, this_model, this_X_test, this_y_test = GenreClassifier.run_classifier()
-    GenreClassifier.save_model(this_model)
+    # this_model_history, this_model, this_X_test, this_y_test = GenreClassifier.run_classifier()
+    # GenreClassifier.save_model(this_model)
 
-    GenreClassifier.show_model_training(model_history_local=this_model_history, model=this_model,
-                                        X_test_local=this_X_test,
-                                        y_test_local=this_y_test)
-    GenreClassifier.confusionmatrix(model=this_model, X_test=this_X_test, y_test=this_y_test)
+    # GenreClassifier.show_model_training(model_history_local=this_model_history, model=this_model,
+    #                                     X_test_local=this_X_test,
+    #                                     y_test_local=this_y_test)
+    # GenreClassifier.confusionmatrix(model=this_model, X_test=this_X_test, y_test=this_y_test)
 
 
-main()
+# main()

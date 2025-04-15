@@ -123,19 +123,17 @@ class Game:
         font_info = pygame.font.Font("assets/Courier_New.ttf", 25)
 
         # Background card
-        pygame.draw.rect(screen, (30, 30, 30), (200, 390, 500, 210), border_radius=10)
-        pygame.draw.rect(screen, (200, 200, 200), (200, 390, 500, 210), 2, border_radius=10)
+        pygame.draw.rect(screen, (30, 30, 30), (200, 390, 500, 150), border_radius=10)
+        pygame.draw.rect(screen, (200, 200, 200), (200, 390, 500, 150), 2, border_radius=10)
 
         # Render the actual genre line
         final_text = font_info.render(actual_line, True, "White")
         screen.blit(final_text, final_text.get_rect(topleft=(220, 400)))
 
         # Render the next 3 genres
-        for i, line in enumerate(other_lines[:5]):
+        for i, line in enumerate(other_lines[:3]):
             line_surface = font_info.render(line, True, "White")
             screen.blit(line_surface, line_surface.get_rect(topleft=(220, 440 + i * 30)))
-
-
 
     def genre_switch(self, genre, screen_size):
         # Information from https://en.wikipedia.org/wiki/Main_Page
@@ -144,12 +142,12 @@ class Game:
         if genre == "BoomBap":
             string_text = "a subgenre of hiphop that was prominent in the East Coast during the golden age of hiphop" \
                           "from the late 1980s to the early 1990s"
-            artists = "DJ Premier, Pete Rock, The Notorious B.I.G."
+            artists = "DJ Premier, Pete Rock, The Notorious B.I.G. ✝"
 
         elif genre == "BossaNova":
             string_text = "with roots in Rio de Janeiro, Brazil, this relaxed style of samba developed in the late " \
                           "1950s and early 1960s with influences from Jazz"
-            artists = "João Gilberto, Quincy Jones, Laufey"
+            artists = "João Gilberto ✝, Quincy Jones, Laufey"
 
         elif genre == "BrazilianFunk":
             string_text = "otherwise known as funk carioca, this is a Brazilian hip hop-influenced music genre from " \
@@ -180,7 +178,7 @@ class Game:
             string_text = "a genre of electronic dance music created by DJs from Chicago's underground club culture" \
                           "when DJs began altering disco songs to give them a more mechanical beat, started in the " \
                           "early 1980s and became mainstream early 1988"
-            artists = "Frankie Knuckles, Lady Gaga, Honey Dijon"
+            artists = "Frankie Knuckles ✝, Lady Gaga, Honey Dijon"
 
         elif genre == "JerseyClub":
             string_text = "a style of electronic club music that originated in Newark, New jersey in the late 1990s" \
@@ -193,6 +191,12 @@ class Game:
                           "1980s which rose to prominence in the late 1990s and early 2000s due to a lot of Puerto" \
                           " Rican musicians, evolved from Dancehall with elements of hiphop and Caribbean music"
             artists = "DJ Nelson, Daddy Yankee, Don Omar"
+        elif genre == "Trap":
+            string_text = "This subgenre of hip-hop music originated at the start of the 1990s in the southern part of " \
+                          "the USA and gets its name" \
+                          " from the Atlanta slang term 'trap house', a house used exclusively to sell drugs. It became" \
+                          " mainstream in the 2010 and became one of the most popular forms of American music. "
+            artists = "Kendrik Lamar, Post Malone,  XXXTentacion ✝"
 
         if string_text != "":
             font_info = pygame.font.Font("assets/Courier_New.ttf", 25)
