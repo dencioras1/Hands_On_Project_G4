@@ -7,6 +7,7 @@ from game import Game
 from assets.button import Button
 from GenreClassifier import GenreClassifier
 from ButtonController import ButtonController
+import os
 
 serial_com = 'COM8'
 serial_baud = 115200
@@ -16,7 +17,9 @@ button_controller = ButtonController(serial_com, serial_baud, serial_timeout)
 
 pygame.init()
 
-SCREEN = pygame.display.set_mode((1920, 1080), pygame.FULLSCREEN)
+# Old resolution: 1280x720 windowed
+# New resolution: 1920x1080 fullscreen
+SCREEN = pygame.display.set_mode((1280, 720))
 pygame.display.set_caption("Menu")
 BG = pygame.image.load("assets/glow.jpg")
 game = Game(None)
@@ -25,6 +28,16 @@ genre_classifier = GenreClassifier()
 local_path = "saved_models/model1.keras"
 model = None
 
+def delete_output():
+
+    file_path = "output.wav"
+
+    if os.path.exists(file_path):
+        os.remove(file_path)
+        print(f"{file_path} deleted.")
+    else:
+        print(f"{file_path} not found.")
+
 def get_font(size):  # Returns Press-Start-2P in the desired size
     return pygame.font.Font("assets/Courier_New.ttf", size)
 
@@ -32,6 +45,7 @@ def get_title_font(size):
     return pygame.font.Font("assets/shagade.ttf", size)
 
 def play():
+    delete_output()
     game.start_introduction(SCREEN)
     button_controller.set_in_game_true()
     user_recording = None
@@ -48,10 +62,12 @@ def play():
         if button_controller.get_has_recorded_and_saved():
             print("User has recorded, stopping in game loop")
             break
+    
+    while True:
+        if os.path.exists("output.wav"):
+            game.classify_input()
+            break
 
-
-
-    # game.classify_input()
     # Post-Game Loop - Show results and give option to restart/menu
 
     button_controller.set_in_game_false()
@@ -79,11 +95,6 @@ def play():
             if event.type == pygame.QUIT:
                 pygame.quit()
                 sys.exit()
-
-
-
-
-
 
 def main_menu():
     button_controller.set_in_game_false()

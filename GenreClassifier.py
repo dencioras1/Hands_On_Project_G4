@@ -277,8 +277,6 @@ def main():
 
     # epochs: 6, batch size: 32, validation split: 0.1
 
-
-
     spect = GenreClassifier.extract_mel_spectrogram("output.wav")
     spect2 = GenreClassifier.extract_mel_spectrogram("Audio/BrazilianFunk/BrazilianFunkQuantized.wav")
     spect3 = GenreClassifier.extract_mel_spectrogram("Audio/House/HouseOffset #3.wav")
