@@ -6577,3 +6577,37 @@ Epoch 16/16
 1/1 ━━━━━━━━━━━━━━━━━━━━ 0s 262ms/step - accuracy: 0.7083 - loss: 4.9732
 Test Accuracy: 0.7083333134651184
 64, 64, 0.1, 16, 64
+
+analyysation notes:
+# def gridsearch():
+#     conv1 = (16, 32, 64)
+#     conv2 = (16, 32, 64)
+#     dropoutrate = (0.01, 0.05, 0.1)
+#     epoch_size = (8, 12, 16)
+#     batch_size = (16, 32, 64)
+#     all_histories = []
+#     all_values = []
+#
+#     for a in conv1:
+#         for b in conv2:
+#             for c in dropoutrate:
+#                 for d in epoch_size:
+#                     for e in batch_size:
+#                         local_model = model(a, b, c)
+#                         train_history = train_model(local_model, d, e)
+#                         local_values = [a, b, c, d, e]
+#                         all_histories.append(train_history)
+#                         all_values.append(local_values)
+#                         print(f"{a}, {b}, {c}, {d}, {e}")
+#     return all_histories, all_values
+
+
+# all_histories, all_values = gridsearch()
+
+# Best values:
+#   16, 16, 0.05, 12, 32
+# 16, 16, 0.05, 12, 64
+# 32, 16, 0.05, 8, 16 best one
+# 32, 64, 0.1, 16, 64
+# ? 32, 32, 0.1, 12, 64
+# ? 64, 16, 0.1, 12, 64

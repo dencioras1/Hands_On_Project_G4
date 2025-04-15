@@ -1,0 +1,938 @@
+/Users/kveen/.local/share/virtualenvs/kveen-bOKx6QKu/bin/python /Users/kveen/Documents/GitHub/Hands_On_Project_G4/GenreClassifier.py
+2025-04-14 19:08:02.852156: I tensorflow/core/platform/cpu_feature_guard.cc:210] This TensorFlow binary is optimized to use available CPU instructions in performance-critical operations.
+To enable the following instructions: AVX2 FMA, in other operations, rebuild TensorFlow with the appropriate compiler flags.
+epochs: 6, batch size: 12, validation split: 0.3
+100%|██████████| 11/11 [00:04<00:00,  2.32it/s]
+0: BoomBap
+1: BossaNova
+2: BrazilianFunk
+3: Dancehall
+4: DnB
+5: Dubstep
+6: House
+7: JerseyClub
+8: Reggaeton
+9: Trap
+Shape of X: (120, 128, 330)
+Labels: [0 1 2 3 4 5 6 7 8 9]
+Epoch 1/6
+6/6 ━━━━━━━━━━━━━━━━━━━━ 5s 523ms/step - accuracy: 0.2768 - loss: 14.9759 - val_accuracy: 0.8621 - val_loss: 0.6177
+Epoch 2/6
+6/6 ━━━━━━━━━━━━━━━━━━━━ 3s 483ms/step - accuracy: 0.7658 - loss: 3.5085 - val_accuracy: 0.8966 - val_loss: 0.2381
+Epoch 3/6
+6/6 ━━━━━━━━━━━━━━━━━━━━ 3s 464ms/step - accuracy: 0.9201 - loss: 0.3241 - val_accuracy: 0.8621 - val_loss: 0.2790
+Epoch 4/6
+6/6 ━━━━━━━━━━━━━━━━━━━━ 3s 476ms/step - accuracy: 0.8827 - loss: 0.3892 - val_accuracy: 0.8966 - val_loss: 0.2969
+Epoch 5/6
+6/6 ━━━━━━━━━━━━━━━━━━━━ 3s 458ms/step - accuracy: 0.9575 - loss: 0.3318 - val_accuracy: 0.8621 - val_loss: 0.2375
+Epoch 6/6
+6/6 ━━━━━━━━━━━━━━━━━━━━ 3s 461ms/step - accuracy: 0.9934 - loss: 0.0624 - val_accuracy: 0.8621 - val_loss: 0.2223
+1/1 ━━━━━━━━━━━━━━━━━━━━ 0s 177ms/step - accuracy: 0.8333 - loss: 0.2349
+Test Accuracy: 0.8333333134651184
+Final Training Accuracy: 0.9851
+Final Validation Accuracy: 0.8621
+epochs: 6, batch size: 12, validation split: 0.2
+100%|██████████| 11/11 [00:02<00:00,  3.83it/s]
+0: BoomBap
+1: BossaNova
+2: BrazilianFunk
+3: Dancehall
+4: DnB
+5: Dubstep
+6: House
+7: JerseyClub
+8: Reggaeton
+9: Trap
+Shape of X: (120, 128, 330)
+Labels: [0 1 2 3 4 5 6 7 8 9]
+Epoch 1/6
+7/7 ━━━━━━━━━━━━━━━━━━━━ 5s 478ms/step - accuracy: 0.3336 - loss: 16.0964 - val_accuracy: 0.8500 - val_loss: 1.0686
+Epoch 2/6
+7/7 ━━━━━━━━━━━━━━━━━━━━ 3s 448ms/step - accuracy: 0.7498 - loss: 2.9515 - val_accuracy: 0.8000 - val_loss: 0.5284
+Epoch 3/6
+7/7 ━━━━━━━━━━━━━━━━━━━━ 3s 463ms/step - accuracy: 0.8152 - loss: 1.7222 - val_accuracy: 0.8000 - val_loss: 0.5099
+Epoch 4/6
+7/7 ━━━━━━━━━━━━━━━━━━━━ 4s 489ms/step - accuracy: 0.8166 - loss: 0.7739 - val_accuracy: 0.9000 - val_loss: 0.3012
+Epoch 5/6
+7/7 ━━━━━━━━━━━━━━━━━━━━ 3s 454ms/step - accuracy: 0.9200 - loss: 0.2640 - val_accuracy: 0.9000 - val_loss: 0.2887
+Epoch 6/6
+7/7 ━━━━━━━━━━━━━━━━━━━━ 3s 475ms/step - accuracy: 0.9828 - loss: 0.0768 - val_accuracy: 0.8000 - val_loss: 0.6240
+1/1 ━━━━━━━━━━━━━━━━━━━━ 0s 178ms/step - accuracy: 0.7917 - loss: 0.6102
+Test Accuracy: 0.7916666865348816
+Final Training Accuracy: 0.9605
+Final Validation Accuracy: 0.8000
+epochs: 6, batch size: 12, validation split: 0.1
+100%|██████████| 11/11 [00:03<00:00,  3.25it/s]
+0: BoomBap
+1: BossaNova
+2: BrazilianFunk
+3: Dancehall
+4: DnB
+5: Dubstep
+6: House
+7: JerseyClub
+8: Reggaeton
+9: Trap
+Shape of X: (120, 128, 330)
+Labels: [0 1 2 3 4 5 6 7 8 9]
+Epoch 1/6
+8/8 ━━━━━━━━━━━━━━━━━━━━ 6s 483ms/step - accuracy: 0.3131 - loss: 16.5199 - val_accuracy: 1.0000 - val_loss: 0.2312
+Epoch 2/6
+8/8 ━━━━━━━━━━━━━━━━━━━━ 4s 458ms/step - accuracy: 0.7908 - loss: 3.4392 - val_accuracy: 1.0000 - val_loss: 0.0963
+Epoch 3/6
+8/8 ━━━━━━━━━━━━━━━━━━━━ 4s 458ms/step - accuracy: 0.8982 - loss: 0.8805 - val_accuracy: 0.9000 - val_loss: 0.1028
+Epoch 4/6
+8/8 ━━━━━━━━━━━━━━━━━━━━ 4s 441ms/step - accuracy: 0.9484 - loss: 0.3810 - val_accuracy: 1.0000 - val_loss: 0.0820
+Epoch 5/6
+8/8 ━━━━━━━━━━━━━━━━━━━━ 4s 439ms/step - accuracy: 0.9607 - loss: 0.0533 - val_accuracy: 1.0000 - val_loss: 0.0069
+Epoch 6/6
+8/8 ━━━━━━━━━━━━━━━━━━━━ 4s 452ms/step - accuracy: 1.0000 - loss: 0.0066 - val_accuracy: 1.0000 - val_loss: 0.0042
+1/1 ━━━━━━━━━━━━━━━━━━━━ 0s 175ms/step - accuracy: 0.8333 - loss: 0.3014
+Test Accuracy: 0.8333333134651184
+Final Training Accuracy: 1.0000
+Final Validation Accuracy: 1.0000
+epochs: 6, batch size: 16, validation split: 0.3
+100%|██████████| 11/11 [00:02<00:00,  3.68it/s]
+0: BoomBap
+1: BossaNova
+2: BrazilianFunk
+3: Dancehall
+4: DnB
+5: Dubstep
+6: House
+7: JerseyClub
+8: Reggaeton
+9: Trap
+Shape of X: (120, 128, 330)
+Labels: [0 1 2 3 4 5 6 7 8 9]
+Epoch 1/6
+5/5 ━━━━━━━━━━━━━━━━━━━━ 5s 564ms/step - accuracy: 0.3120 - loss: 11.2101 - val_accuracy: 0.6552 - val_loss: 1.0762
+Epoch 2/6
+5/5 ━━━━━━━━━━━━━━━━━━━━ 3s 541ms/step - accuracy: 0.7522 - loss: 6.3776 - val_accuracy: 0.6897 - val_loss: 0.7079
+Epoch 3/6
+5/5 ━━━━━━━━━━━━━━━━━━━━ 3s 540ms/step - accuracy: 0.7984 - loss: 2.5386 - val_accuracy: 0.7931 - val_loss: 0.3826
+Epoch 4/6
+5/5 ━━━━━━━━━━━━━━━━━━━━ 3s 529ms/step - accuracy: 1.0000 - loss: 0.0017 - val_accuracy: 0.8621 - val_loss: 0.2834
+Epoch 5/6
+5/5 ━━━━━━━━━━━━━━━━━━━━ 3s 511ms/step - accuracy: 1.0000 - loss: 0.0054 - val_accuracy: 0.8276 - val_loss: 0.3140
+Epoch 6/6
+5/5 ━━━━━━━━━━━━━━━━━━━━ 3s 531ms/step - accuracy: 0.9733 - loss: 0.0490 - val_accuracy: 0.8276 - val_loss: 0.3444
+1/1 ━━━━━━━━━━━━━━━━━━━━ 0s 166ms/step - accuracy: 0.7917 - loss: 0.3694
+Test Accuracy: 0.7916666865348816
+Final Training Accuracy: 0.9851
+Final Validation Accuracy: 0.8276
+epochs: 6, batch size: 16, validation split: 0.2
+100%|██████████| 11/11 [00:02<00:00,  4.24it/s]
+0: BoomBap
+1: BossaNova
+2: BrazilianFunk
+3: Dancehall
+4: DnB
+5: Dubstep
+6: House
+7: JerseyClub
+8: Reggaeton
+9: Trap
+Shape of X: (120, 128, 330)
+Labels: [0 1 2 3 4 5 6 7 8 9]
+Epoch 1/6
+5/5 ━━━━━━━━━━━━━━━━━━━━ 5s 625ms/step - accuracy: 0.2974 - loss: 15.5572 - val_accuracy: 0.5000 - val_loss: 1.7163
+Epoch 2/6
+5/5 ━━━━━━━━━━━━━━━━━━━━ 3s 594ms/step - accuracy: 0.7013 - loss: 4.8175 - val_accuracy: 0.6000 - val_loss: 0.7686
+Epoch 3/6
+5/5 ━━━━━━━━━━━━━━━━━━━━ 3s 613ms/step - accuracy: 0.7517 - loss: 1.9025 - val_accuracy: 0.6000 - val_loss: 0.7088
+Epoch 4/6
+5/5 ━━━━━━━━━━━━━━━━━━━━ 3s 597ms/step - accuracy: 0.8970 - loss: 0.9032 - val_accuracy: 0.8500 - val_loss: 0.3943
+Epoch 5/6
+5/5 ━━━━━━━━━━━━━━━━━━━━ 3s 593ms/step - accuracy: 0.9843 - loss: 0.1684 - val_accuracy: 0.9500 - val_loss: 0.2678
+Epoch 6/6
+5/5 ━━━━━━━━━━━━━━━━━━━━ 3s 593ms/step - accuracy: 0.9930 - loss: 0.0234 - val_accuracy: 0.8000 - val_loss: 0.3276
+1/1 ━━━━━━━━━━━━━━━━━━━━ 0s 173ms/step - accuracy: 0.7500 - loss: 0.3892
+Test Accuracy: 0.75
+Final Training Accuracy: 0.9868
+Final Validation Accuracy: 0.8000
+epochs: 6, batch size: 16, validation split: 0.1
+100%|██████████| 11/11 [00:02<00:00,  4.28it/s]
+0: BoomBap
+1: BossaNova
+2: BrazilianFunk
+3: Dancehall
+4: DnB
+5: Dubstep
+6: House
+7: JerseyClub
+8: Reggaeton
+9: Trap
+Shape of X: (120, 128, 330)
+Labels: [0 1 2 3 4 5 6 7 8 9]
+Epoch 1/6
+6/6 ━━━━━━━━━━━━━━━━━━━━ 5s 571ms/step - accuracy: 0.3208 - loss: 17.5398 - val_accuracy: 0.9000 - val_loss: 0.7073
+Epoch 2/6
+6/6 ━━━━━━━━━━━━━━━━━━━━ 3s 547ms/step - accuracy: 0.7113 - loss: 6.2401 - val_accuracy: 0.9000 - val_loss: 0.2489
+Epoch 3/6
+6/6 ━━━━━━━━━━━━━━━━━━━━ 3s 523ms/step - accuracy: 0.8254 - loss: 3.2112 - val_accuracy: 1.0000 - val_loss: 0.0098
+Epoch 4/6
+6/6 ━━━━━━━━━━━━━━━━━━━━ 3s 541ms/step - accuracy: 0.9138 - loss: 1.4008 - val_accuracy: 0.9000 - val_loss: 0.0807
+Epoch 5/6
+6/6 ━━━━━━━━━━━━━━━━━━━━ 3s 544ms/step - accuracy: 0.9949 - loss: 0.0268 - val_accuracy: 1.0000 - val_loss: 0.0099
+Epoch 6/6
+6/6 ━━━━━━━━━━━━━━━━━━━━ 3s 542ms/step - accuracy: 0.9763 - loss: 0.0320 - val_accuracy: 1.0000 - val_loss: 0.0047
+1/1 ━━━━━━━━━━━━━━━━━━━━ 0s 170ms/step - accuracy: 0.8750 - loss: 0.3075
+Test Accuracy: 0.875
+Final Training Accuracy: 0.9884
+Final Validation Accuracy: 1.0000
+epochs: 6, batch size: 32, validation split: 0.3
+100%|██████████| 11/11 [00:02<00:00,  4.27it/s]
+0: BoomBap
+1: BossaNova
+2: BrazilianFunk
+3: Dancehall
+4: DnB
+5: Dubstep
+6: House
+7: JerseyClub
+8: Reggaeton
+9: Trap
+Shape of X: (120, 128, 330)
+Labels: [0 1 2 3 4 5 6 7 8 9]
+Epoch 1/6
+3/3 ━━━━━━━━━━━━━━━━━━━━ 5s 811ms/step - accuracy: 0.2391 - loss: 5.6981 - val_accuracy: 0.6897 - val_loss: 1.2902
+Epoch 2/6
+3/3 ━━━━━━━━━━━━━━━━━━━━ 3s 755ms/step - accuracy: 0.8323 - loss: 6.2157 - val_accuracy: 0.7586 - val_loss: 1.0413
+Epoch 3/6
+3/3 ━━━━━━━━━━━━━━━━━━━━ 3s 729ms/step - accuracy: 0.9048 - loss: 1.7874 - val_accuracy: 0.7586 - val_loss: 0.7999
+Epoch 4/6
+3/3 ━━━━━━━━━━━━━━━━━━━━ 3s 758ms/step - accuracy: 0.8814 - loss: 1.9666 - val_accuracy: 0.7931 - val_loss: 0.5138
+Epoch 5/6
+3/3 ━━━━━━━━━━━━━━━━━━━━ 3s 880ms/step - accuracy: 0.9503 - loss: 0.4001 - val_accuracy: 0.8966 - val_loss: 0.5569
+Epoch 6/6
+3/3 ━━━━━━━━━━━━━━━━━━━━ 3s 811ms/step - accuracy: 0.9694 - loss: 0.2292 - val_accuracy: 0.8621 - val_loss: 0.4775
+1/1 ━━━━━━━━━━━━━━━━━━━━ 0s 187ms/step - accuracy: 0.7083 - loss: 0.9184
+Test Accuracy: 0.7083333134651184
+Final Training Accuracy: 0.9701
+Final Validation Accuracy: 0.8621
+epochs: 6, batch size: 32, validation split: 0.2
+100%|██████████| 11/11 [00:03<00:00,  3.34it/s]
+0: BoomBap
+1: BossaNova
+2: BrazilianFunk
+3: Dancehall
+4: DnB
+5: Dubstep
+6: House
+7: JerseyClub
+8: Reggaeton
+9: Trap
+Shape of X: (120, 128, 330)
+Labels: [0 1 2 3 4 5 6 7 8 9]
+Epoch 1/6
+3/3 ━━━━━━━━━━━━━━━━━━━━ 6s 996ms/step - accuracy: 0.2255 - loss: 11.3858 - val_accuracy: 0.7500 - val_loss: 1.9817
+Epoch 2/6
+3/3 ━━━━━━━━━━━━━━━━━━━━ 3s 877ms/step - accuracy: 0.7159 - loss: 13.3995 - val_accuracy: 0.6500 - val_loss: 1.3531
+Epoch 3/6
+3/3 ━━━━━━━━━━━━━━━━━━━━ 3s 872ms/step - accuracy: 0.7944 - loss: 3.3064 - val_accuracy: 0.8000 - val_loss: 0.6559
+Epoch 4/6
+3/3 ━━━━━━━━━━━━━━━━━━━━ 3s 857ms/step - accuracy: 0.7866 - loss: 1.3760 - val_accuracy: 0.9000 - val_loss: 0.3564
+Epoch 5/6
+3/3 ━━━━━━━━━━━━━━━━━━━━ 3s 870ms/step - accuracy: 0.8939 - loss: 0.6827 - val_accuracy: 0.9500 - val_loss: 0.3357
+Epoch 6/6
+3/3 ━━━━━━━━━━━━━━━━━━━━ 3s 871ms/step - accuracy: 0.9227 - loss: 0.4627 - val_accuracy: 0.9500 - val_loss: 0.2911
+1/1 ━━━━━━━━━━━━━━━━━━━━ 0s 172ms/step - accuracy: 0.7917 - loss: 0.5977
+Test Accuracy: 0.7916666865348816
+Final Training Accuracy: 0.9079
+Final Validation Accuracy: 0.9500
+epochs: 6, batch size: 32, validation split: 0.1
+100%|██████████| 11/11 [00:02<00:00,  4.17it/s]
+0: BoomBap
+1: BossaNova
+2: BrazilianFunk
+3: Dancehall
+4: DnB
+5: Dubstep
+6: House
+7: JerseyClub
+8: Reggaeton
+9: Trap
+Shape of X: (120, 128, 330)
+Labels: [0 1 2 3 4 5 6 7 8 9]
+Epoch 1/6
+3/3 ━━━━━━━━━━━━━━━━━━━━ 5s 1s/step - accuracy: 0.3070 - loss: 7.9694 - val_accuracy: 0.8000 - val_loss: 1.3841
+Epoch 2/6
+3/3 ━━━━━━━━━━━━━━━━━━━━ 3s 1s/step - accuracy: 0.7841 - loss: 11.6413 - val_accuracy: 0.8000 - val_loss: 1.1851
+Epoch 3/6
+3/3 ━━━━━━━━━━━━━━━━━━━━ 4s 1s/step - accuracy: 0.7490 - loss: 5.6047 - val_accuracy: 0.9000 - val_loss: 0.1839
+Epoch 4/6
+3/3 ━━━━━━━━━━━━━━━━━━━━ 4s 1s/step - accuracy: 0.8229 - loss: 1.8984 - val_accuracy: 0.8000 - val_loss: 0.4222
+Epoch 5/6
+3/3 ━━━━━━━━━━━━━━━━━━━━ 3s 1s/step - accuracy: 0.9007 - loss: 1.0081 - val_accuracy: 1.0000 - val_loss: 0.0586
+Epoch 6/6
+3/3 ━━━━━━━━━━━━━━━━━━━━ 3s 1s/step - accuracy: 0.9845 - loss: 0.0330 - val_accuracy: 1.0000 - val_loss: 0.0194
+1/1 ━━━━━━━━━━━━━━━━━━━━ 0s 164ms/step - accuracy: 0.7083 - loss: 0.4373
+Test Accuracy: 0.7083333134651184
+Final Training Accuracy: 0.9767
+Final Validation Accuracy: 1.0000
+epochs: 8, batch size: 12, validation split: 0.3
+100%|██████████| 11/11 [00:02<00:00,  3.79it/s]
+0: BoomBap
+1: BossaNova
+2: BrazilianFunk
+3: Dancehall
+4: DnB
+5: Dubstep
+6: House
+7: JerseyClub
+8: Reggaeton
+9: Trap
+Shape of X: (120, 128, 330)
+Labels: [0 1 2 3 4 5 6 7 8 9]
+Epoch 1/8
+6/6 ━━━━━━━━━━━━━━━━━━━━ 5s 478ms/step - accuracy: 0.2844 - loss: 12.7817 - val_accuracy: 0.8276 - val_loss: 0.3837
+Epoch 2/8
+6/6 ━━━━━━━━━━━━━━━━━━━━ 3s 469ms/step - accuracy: 0.8174 - loss: 2.7182 - val_accuracy: 0.7931 - val_loss: 0.4373
+Epoch 3/8
+6/6 ━━━━━━━━━━━━━━━━━━━━ 3s 483ms/step - accuracy: 0.8546 - loss: 0.7843 - val_accuracy: 0.8966 - val_loss: 0.2438
+Epoch 4/8
+6/6 ━━━━━━━━━━━━━━━━━━━━ 3s 502ms/step - accuracy: 0.8040 - loss: 0.6516 - val_accuracy: 0.8276 - val_loss: 0.4068
+Epoch 5/8
+6/6 ━━━━━━━━━━━━━━━━━━━━ 3s 478ms/step - accuracy: 0.8963 - loss: 0.6249 - val_accuracy: 0.8276 - val_loss: 0.3844
+Epoch 6/8
+6/6 ━━━━━━━━━━━━━━━━━━━━ 3s 488ms/step - accuracy: 0.9589 - loss: 0.1441 - val_accuracy: 0.8621 - val_loss: 0.2450
+Epoch 7/8
+6/6 ━━━━━━━━━━━━━━━━━━━━ 3s 526ms/step - accuracy: 0.9837 - loss: 0.0262 - val_accuracy: 0.9310 - val_loss: 0.1910
+Epoch 8/8
+6/6 ━━━━━━━━━━━━━━━━━━━━ 3s 489ms/step - accuracy: 1.0000 - loss: 5.1635e-04 - val_accuracy: 0.8621 - val_loss: 0.2568
+1/1 ━━━━━━━━━━━━━━━━━━━━ 0s 186ms/step - accuracy: 0.7917 - loss: 0.7071
+Test Accuracy: 0.7916666865348816
+Final Training Accuracy: 1.0000
+Final Validation Accuracy: 0.8621
+epochs: 8, batch size: 12, validation split: 0.2
+100%|██████████| 11/11 [00:02<00:00,  4.11it/s]
+0: BoomBap
+1: BossaNova
+2: BrazilianFunk
+3: Dancehall
+4: DnB
+5: Dubstep
+6: House
+7: JerseyClub
+8: Reggaeton
+9: Trap
+Shape of X: (120, 128, 330)
+Labels: [0 1 2 3 4 5 6 7 8 9]
+Epoch 1/8
+7/7 ━━━━━━━━━━━━━━━━━━━━ 5s 459ms/step - accuracy: 0.2859 - loss: 10.0860 - val_accuracy: 0.7500 - val_loss: 0.4979
+Epoch 2/8
+7/7 ━━━━━━━━━━━━━━━━━━━━ 3s 438ms/step - accuracy: 0.7486 - loss: 4.5221 - val_accuracy: 0.8000 - val_loss: 0.7052
+Epoch 3/8
+7/7 ━━━━━━━━━━━━━━━━━━━━ 3s 428ms/step - accuracy: 0.8692 - loss: 3.2377 - val_accuracy: 0.9000 - val_loss: 0.8473
+Epoch 4/8
+7/7 ━━━━━━━━━━━━━━━━━━━━ 3s 445ms/step - accuracy: 0.9422 - loss: 0.6364 - val_accuracy: 0.9000 - val_loss: 0.3125
+Epoch 5/8
+7/7 ━━━━━━━━━━━━━━━━━━━━ 3s 433ms/step - accuracy: 0.9613 - loss: 0.2952 - val_accuracy: 0.8000 - val_loss: 0.3678
+Epoch 6/8
+7/7 ━━━━━━━━━━━━━━━━━━━━ 3s 445ms/step - accuracy: 0.9745 - loss: 0.0788 - val_accuracy: 0.8000 - val_loss: 0.3757
+Epoch 7/8
+7/7 ━━━━━━━━━━━━━━━━━━━━ 3s 485ms/step - accuracy: 0.9967 - loss: 0.0083 - val_accuracy: 0.8000 - val_loss: 0.6447
+Epoch 8/8
+7/7 ━━━━━━━━━━━━━━━━━━━━ 3s 458ms/step - accuracy: 0.9950 - loss: 0.0161 - val_accuracy: 0.7500 - val_loss: 1.1868
+1/1 ━━━━━━━━━━━━━━━━━━━━ 0s 176ms/step - accuracy: 0.7500 - loss: 1.0008
+Test Accuracy: 0.75
+Final Training Accuracy: 0.9868
+Final Validation Accuracy: 0.7500
+epochs: 8, batch size: 12, validation split: 0.1
+100%|██████████| 11/11 [00:03<00:00,  3.49it/s]
+0: BoomBap
+1: BossaNova
+2: BrazilianFunk
+3: Dancehall
+4: DnB
+5: Dubstep
+6: House
+7: JerseyClub
+8: Reggaeton
+9: Trap
+Shape of X: (120, 128, 330)
+Labels: [0 1 2 3 4 5 6 7 8 9]
+Epoch 1/8
+8/8 ━━━━━━━━━━━━━━━━━━━━ 5s 458ms/step - accuracy: 0.3290 - loss: 18.2436 - val_accuracy: 0.9000 - val_loss: 0.3306
+Epoch 2/8
+8/8 ━━━━━━━━━━━━━━━━━━━━ 4s 431ms/step - accuracy: 0.8990 - loss: 1.3332 - val_accuracy: 1.0000 - val_loss: 0.1105
+Epoch 3/8
+8/8 ━━━━━━━━━━━━━━━━━━━━ 4s 434ms/step - accuracy: 0.8908 - loss: 1.6615 - val_accuracy: 1.0000 - val_loss: 0.1107
+Epoch 4/8
+8/8 ━━━━━━━━━━━━━━━━━━━━ 4s 429ms/step - accuracy: 0.9403 - loss: 0.5242 - val_accuracy: 0.9000 - val_loss: 0.2376
+Epoch 5/8
+8/8 ━━━━━━━━━━━━━━━━━━━━ 4s 435ms/step - accuracy: 0.9794 - loss: 0.0997 - val_accuracy: 0.6000 - val_loss: 0.4706
+Epoch 6/8
+8/8 ━━━━━━━━━━━━━━━━━━━━ 4s 441ms/step - accuracy: 0.9522 - loss: 0.3001 - val_accuracy: 0.7000 - val_loss: 1.8015
+Epoch 7/8
+8/8 ━━━━━━━━━━━━━━━━━━━━ 4s 431ms/step - accuracy: 0.9401 - loss: 0.1987 - val_accuracy: 0.5000 - val_loss: 3.7312
+Epoch 8/8
+8/8 ━━━━━━━━━━━━━━━━━━━━ 4s 445ms/step - accuracy: 0.9703 - loss: 0.1560 - val_accuracy: 0.2000 - val_loss: 7.6631
+1/1 ━━━━━━━━━━━━━━━━━━━━ 0s 172ms/step - accuracy: 0.5833 - loss: 5.7954
+Test Accuracy: 0.5833333134651184
+Final Training Accuracy: 0.9535
+Final Validation Accuracy: 0.2000
+epochs: 8, batch size: 16, validation split: 0.3
+100%|██████████| 11/11 [00:02<00:00,  3.72it/s]
+0: BoomBap
+1: BossaNova
+2: BrazilianFunk
+3: Dancehall
+4: DnB
+5: Dubstep
+6: House
+7: JerseyClub
+8: Reggaeton
+9: Trap
+Shape of X: (120, 128, 330)
+Labels: [0 1 2 3 4 5 6 7 8 9]
+Epoch 1/8
+5/5 ━━━━━━━━━━━━━━━━━━━━ 6s 624ms/step - accuracy: 0.2943 - loss: 13.0393 - val_accuracy: 0.8276 - val_loss: 0.6368
+Epoch 2/8
+5/5 ━━━━━━━━━━━━━━━━━━━━ 3s 553ms/step - accuracy: 0.9031 - loss: 0.6502 - val_accuracy: 0.8966 - val_loss: 0.3538
+Epoch 3/8
+5/5 ━━━━━━━━━━━━━━━━━━━━ 3s 542ms/step - accuracy: 0.9512 - loss: 0.5011 - val_accuracy: 0.6897 - val_loss: 0.8664
+Epoch 4/8
+5/5 ━━━━━━━━━━━━━━━━━━━━ 3s 554ms/step - accuracy: 0.8578 - loss: 1.4922 - val_accuracy: 0.7586 - val_loss: 0.6930
+Epoch 5/8
+5/5 ━━━━━━━━━━━━━━━━━━━━ 3s 549ms/step - accuracy: 1.0000 - loss: 7.4258e-05 - val_accuracy: 0.7586 - val_loss: 1.4377
+Epoch 6/8
+5/5 ━━━━━━━━━━━━━━━━━━━━ 3s 602ms/step - accuracy: 0.9733 - loss: 0.0197 - val_accuracy: 0.7586 - val_loss: 2.2232
+Epoch 7/8
+5/5 ━━━━━━━━━━━━━━━━━━━━ 3s 531ms/step - accuracy: 1.0000 - loss: 0.0066 - val_accuracy: 0.7586 - val_loss: 3.0520
+Epoch 8/8
+5/5 ━━━━━━━━━━━━━━━━━━━━ 3s 577ms/step - accuracy: 1.0000 - loss: 1.6236e-04 - val_accuracy: 0.7241 - val_loss: 3.9150
+1/1 ━━━━━━━━━━━━━━━━━━━━ 0s 175ms/step - accuracy: 0.8333 - loss: 1.3266
+Test Accuracy: 0.8333333134651184
+Final Training Accuracy: 1.0000
+Final Validation Accuracy: 0.7241
+epochs: 8, batch size: 16, validation split: 0.2
+100%|██████████| 11/11 [00:03<00:00,  3.58it/s]
+0: BoomBap
+1: BossaNova
+2: BrazilianFunk
+3: Dancehall
+4: DnB
+5: Dubstep
+6: House
+7: JerseyClub
+8: Reggaeton
+9: Trap
+Shape of X: (120, 128, 330)
+Labels: [0 1 2 3 4 5 6 7 8 9]
+Epoch 1/8
+5/5 ━━━━━━━━━━━━━━━━━━━━ 6s 734ms/step - accuracy: 0.2844 - loss: 11.1104 - val_accuracy: 0.7500 - val_loss: 0.7092
+Epoch 2/8
+5/5 ━━━━━━━━━━━━━━━━━━━━ 3s 665ms/step - accuracy: 0.7124 - loss: 3.9039 - val_accuracy: 0.9000 - val_loss: 0.2905
+Epoch 3/8
+5/5 ━━━━━━━━━━━━━━━━━━━━ 3s 612ms/step - accuracy: 0.8449 - loss: 0.6844 - val_accuracy: 0.9000 - val_loss: 0.3437
+Epoch 4/8
+5/5 ━━━━━━━━━━━━━━━━━━━━ 3s 574ms/step - accuracy: 0.9389 - loss: 0.2342 - val_accuracy: 0.8000 - val_loss: 0.3096
+Epoch 5/8
+5/5 ━━━━━━━━━━━━━━━━━━━━ 3s 581ms/step - accuracy: 0.9537 - loss: 0.1876 - val_accuracy: 0.9500 - val_loss: 0.1464
+Epoch 6/8
+5/5 ━━━━━━━━━━━━━━━━━━━━ 3s 582ms/step - accuracy: 1.0000 - loss: 0.0015 - val_accuracy: 1.0000 - val_loss: 0.0794
+Epoch 7/8
+5/5 ━━━━━━━━━━━━━━━━━━━━ 3s 618ms/step - accuracy: 0.9513 - loss: 0.2668 - val_accuracy: 0.9500 - val_loss: 0.1183
+Epoch 8/8
+5/5 ━━━━━━━━━━━━━━━━━━━━ 3s 615ms/step - accuracy: 1.0000 - loss: 0.0011 - val_accuracy: 0.9000 - val_loss: 0.3847
+1/1 ━━━━━━━━━━━━━━━━━━━━ 0s 183ms/step - accuracy: 0.7083 - loss: 1.0258
+Test Accuracy: 0.7083333134651184
+Final Training Accuracy: 1.0000
+Final Validation Accuracy: 0.9000
+epochs: 8, batch size: 16, validation split: 0.1
+100%|██████████| 11/11 [00:03<00:00,  3.62it/s]
+0: BoomBap
+1: BossaNova
+2: BrazilianFunk
+3: Dancehall
+4: DnB
+5: Dubstep
+6: House
+7: JerseyClub
+8: Reggaeton
+9: Trap
+Shape of X: (120, 128, 330)
+Labels: [0 1 2 3 4 5 6 7 8 9]
+Epoch 1/8
+6/6 ━━━━━━━━━━━━━━━━━━━━ 5s 603ms/step - accuracy: 0.2884 - loss: 15.7893 - val_accuracy: 0.8000 - val_loss: 0.7124
+Epoch 2/8
+6/6 ━━━━━━━━━━━━━━━━━━━━ 3s 551ms/step - accuracy: 0.7496 - loss: 5.2793 - val_accuracy: 0.8000 - val_loss: 0.4717
+Epoch 3/8
+6/6 ━━━━━━━━━━━━━━━━━━━━ 3s 533ms/step - accuracy: 0.8289 - loss: 0.7509 - val_accuracy: 0.9000 - val_loss: 0.5259
+Epoch 4/8
+6/6 ━━━━━━━━━━━━━━━━━━━━ 3s 538ms/step - accuracy: 0.7663 - loss: 0.5007 - val_accuracy: 0.8000 - val_loss: 0.4950
+Epoch 5/8
+6/6 ━━━━━━━━━━━━━━━━━━━━ 3s 552ms/step - accuracy: 0.8819 - loss: 0.3033 - val_accuracy: 0.8000 - val_loss: 0.4180
+Epoch 6/8
+6/6 ━━━━━━━━━━━━━━━━━━━━ 3s 538ms/step - accuracy: 0.9410 - loss: 0.2182 - val_accuracy: 0.7000 - val_loss: 0.5044
+Epoch 7/8
+6/6 ━━━━━━━━━━━━━━━━━━━━ 3s 559ms/step - accuracy: 0.9779 - loss: 0.0883 - val_accuracy: 0.7000 - val_loss: 1.3667
+Epoch 8/8
+6/6 ━━━━━━━━━━━━━━━━━━━━ 3s 549ms/step - accuracy: 0.9927 - loss: 0.0387 - val_accuracy: 0.6000 - val_loss: 2.5022
+1/1 ━━━━━━━━━━━━━━━━━━━━ 0s 175ms/step - accuracy: 0.5417 - loss: 3.0449
+Test Accuracy: 0.5416666865348816
+Final Training Accuracy: 0.9884
+Final Validation Accuracy: 0.6000
+epochs: 8, batch size: 32, validation split: 0.3
+0: BoomBap
+1: BossaNova
+2: BrazilianFunk
+3: Dancehall
+4: DnB
+5: Dubstep
+6: House
+7: JerseyClub
+8: Reggaeton
+9: Trap
+Shape of X: (120, 128, 330)
+Labels: [0 1 2 3 4 5 6 7 8 9]
+Epoch 1/8
+3/3 ━━━━━━━━━━━━━━━━━━━━ 5s 825ms/step - accuracy: 0.3084 - loss: 6.8677 - val_accuracy: 0.6552 - val_loss: 0.7985
+100%|██████████| 11/11 [00:02<00:00,  3.96it/s]
+Epoch 2/8
+3/3 ━━━━━━━━━━━━━━━━━━━━ 3s 773ms/step - accuracy: 0.8210 - loss: 2.4431 - val_accuracy: 0.7586 - val_loss: 0.9917
+Epoch 3/8
+3/3 ━━━━━━━━━━━━━━━━━━━━ 3s 743ms/step - accuracy: 0.7556 - loss: 8.0553 - val_accuracy: 0.8966 - val_loss: 0.4401
+Epoch 4/8
+3/3 ━━━━━━━━━━━━━━━━━━━━ 3s 794ms/step - accuracy: 0.9240 - loss: 0.8093 - val_accuracy: 0.8276 - val_loss: 0.3455
+Epoch 5/8
+3/3 ━━━━━━━━━━━━━━━━━━━━ 3s 753ms/step - accuracy: 0.9083 - loss: 1.2707 - val_accuracy: 0.8966 - val_loss: 0.2528
+Epoch 6/8
+3/3 ━━━━━━━━━━━━━━━━━━━━ 3s 768ms/step - accuracy: 0.9467 - loss: 0.9074 - val_accuracy: 0.8966 - val_loss: 0.2695
+Epoch 7/8
+3/3 ━━━━━━━━━━━━━━━━━━━━ 3s 798ms/step - accuracy: 0.9467 - loss: 0.4477 - val_accuracy: 0.8966 - val_loss: 0.2568
+Epoch 8/8
+3/3 ━━━━━━━━━━━━━━━━━━━━ 3s 764ms/step - accuracy: 1.0000 - loss: 5.7115e-04 - val_accuracy: 0.8621 - val_loss: 0.2778
+1/1 ━━━━━━━━━━━━━━━━━━━━ 0s 169ms/step - accuracy: 0.7083 - loss: 0.7365
+Test Accuracy: 0.7083333134651184
+Final Training Accuracy: 1.0000
+Final Validation Accuracy: 0.8621
+epochs: 8, batch size: 32, validation split: 0.2
+0: BoomBap
+1: BossaNova
+2: BrazilianFunk
+3: Dancehall
+4: DnB
+5: Dubstep
+6: House
+7: JerseyClub
+8: Reggaeton
+9: Trap
+Shape of X: (120, 128, 330)
+Labels: [0 1 2 3 4 5 6 7 8 9]
+Epoch 1/8
+3/3 ━━━━━━━━━━━━━━━━━━━━ 6s 969ms/step - accuracy: 0.2477 - loss: 11.1387 - val_accuracy: 0.4500 - val_loss: 2.0757
+Epoch 2/8
+100%|██████████| 11/11 [00:02<00:00,  3.69it/s]
+3/3 ━━━━━━━━━━━━━━━━━━━━ 3s 897ms/step - accuracy: 0.7434 - loss: 5.1908 - val_accuracy: 0.6500 - val_loss: 1.3536
+Epoch 3/8
+3/3 ━━━━━━━━━━━━━━━━━━━━ 3s 894ms/step - accuracy: 0.8102 - loss: 1.9978 - val_accuracy: 0.7500 - val_loss: 1.0025
+Epoch 4/8
+3/3 ━━━━━━━━━━━━━━━━━━━━ 3s 874ms/step - accuracy: 0.9542 - loss: 0.2235 - val_accuracy: 0.8500 - val_loss: 0.7371
+Epoch 5/8
+3/3 ━━━━━━━━━━━━━━━━━━━━ 3s 888ms/step - accuracy: 0.9817 - loss: 0.1904 - val_accuracy: 0.8500 - val_loss: 0.5917
+Epoch 6/8
+3/3 ━━━━━━━━━━━━━━━━━━━━ 3s 904ms/step - accuracy: 0.9895 - loss: 0.0201 - val_accuracy: 0.8500 - val_loss: 0.4477
+Epoch 7/8
+3/3 ━━━━━━━━━━━━━━━━━━━━ 3s 878ms/step - accuracy: 0.9817 - loss: 0.0207 - val_accuracy: 0.9500 - val_loss: 0.3312
+Epoch 8/8
+3/3 ━━━━━━━━━━━━━━━━━━━━ 3s 945ms/step - accuracy: 1.0000 - loss: 1.0158e-04 - val_accuracy: 0.9500 - val_loss: 0.3038
+1/1 ━━━━━━━━━━━━━━━━━━━━ 0s 168ms/step - accuracy: 0.7917 - loss: 0.6713
+Test Accuracy: 0.7916666865348816
+Final Training Accuracy: 1.0000
+Final Validation Accuracy: 0.9500
+epochs: 8, batch size: 32, validation split: 0.1
+0: BoomBap
+1: BossaNova
+2: BrazilianFunk
+3: Dancehall
+4: DnB
+5: Dubstep
+6: House
+7: JerseyClub
+8: Reggaeton
+9: Trap
+Shape of X: (120, 128, 330)
+Labels: [0 1 2 3 4 5 6 7 8 9]
+Epoch 1/8
+3/3 ━━━━━━━━━━━━━━━━━━━━ 5s 1s/step - accuracy: 0.3402 - loss: 6.5096 - val_accuracy: 0.9000 - val_loss: 0.3976
+Epoch 2/8
+3/3 ━━━━━━━━━━━━━━━━━━━━ 3s 1s/step - accuracy: 0.7627 - loss: 7.8978 - val_accuracy: 0.9000 - val_loss: 0.2766
+100%|██████████| 11/11 [00:02<00:00,  3.75it/s]
+Epoch 3/8
+3/3 ━━━━━━━━━━━━━━━━━━━━ 3s 1s/step - accuracy: 0.8113 - loss: 1.7055 - val_accuracy: 0.8000 - val_loss: 0.3643
+Epoch 4/8
+3/3 ━━━━━━━━━━━━━━━━━━━━ 3s 1s/step - accuracy: 0.8501 - loss: 0.9701 - val_accuracy: 1.0000 - val_loss: 0.0784
+Epoch 5/8
+3/3 ━━━━━━━━━━━━━━━━━━━━ 3s 1s/step - accuracy: 0.9358 - loss: 0.2963 - val_accuracy: 0.9000 - val_loss: 0.1449
+Epoch 6/8
+3/3 ━━━━━━━━━━━━━━━━━━━━ 3s 1s/step - accuracy: 0.9747 - loss: 0.1263 - val_accuracy: 0.8000 - val_loss: 0.3532
+Epoch 7/8
+3/3 ━━━━━━━━━━━━━━━━━━━━ 3s 1s/step - accuracy: 0.9727 - loss: 0.0359 - val_accuracy: 0.8000 - val_loss: 0.1936
+Epoch 8/8
+3/3 ━━━━━━━━━━━━━━━━━━━━ 3s 1s/step - accuracy: 1.0000 - loss: 8.4053e-06 - val_accuracy: 1.0000 - val_loss: 0.1144
+1/1 ━━━━━━━━━━━━━━━━━━━━ 0s 170ms/step - accuracy: 0.9167 - loss: 0.1814
+Test Accuracy: 0.9166666865348816
+Final Training Accuracy: 1.0000
+Final Validation Accuracy: 1.0000
+epochs: 10, batch size: 12, validation split: 0.3
+0: BoomBap
+1: BossaNova
+2: BrazilianFunk
+3: Dancehall
+4: DnB
+5: Dubstep
+6: House
+7: JerseyClub
+8: Reggaeton
+9: Trap
+Shape of X: (120, 128, 330)
+Labels: [0 1 2 3 4 5 6 7 8 9]
+Epoch 1/10
+6/6 ━━━━━━━━━━━━━━━━━━━━ 4s 491ms/step - accuracy: 0.3904 - loss: 11.1912 - val_accuracy: 0.6897 - val_loss: 0.8856
+Epoch 2/10
+6/6 ━━━━━━━━━━━━━━━━━━━━ 3s 459ms/step - accuracy: 0.7542 - loss: 4.2946 - val_accuracy: 0.7931 - val_loss: 0.8277
+100%|██████████| 11/11 [00:02<00:00,  3.91it/s]
+Epoch 3/10
+6/6 ━━━━━━━━━━━━━━━━━━━━ 3s 448ms/step - accuracy: 0.9056 - loss: 1.1589 - val_accuracy: 0.8966 - val_loss: 0.3952
+Epoch 4/10
+6/6 ━━━━━━━━━━━━━━━━━━━━ 3s 452ms/step - accuracy: 0.8877 - loss: 0.3314 - val_accuracy: 0.9310 - val_loss: 0.2003
+Epoch 5/10
+6/6 ━━━━━━━━━━━━━━━━━━━━ 3s 444ms/step - accuracy: 1.0000 - loss: 4.6361e-04 - val_accuracy: 0.8621 - val_loss: 0.3568
+Epoch 6/10
+6/6 ━━━━━━━━━━━━━━━━━━━━ 3s 449ms/step - accuracy: 0.9708 - loss: 0.0549 - val_accuracy: 0.8621 - val_loss: 0.3810
+Epoch 7/10
+6/6 ━━━━━━━━━━━━━━━━━━━━ 3s 438ms/step - accuracy: 1.0000 - loss: 3.0226e-04 - val_accuracy: 0.9310 - val_loss: 0.3878
+Epoch 8/10
+6/6 ━━━━━━━━━━━━━━━━━━━━ 3s 443ms/step - accuracy: 1.0000 - loss: 0.0034 - val_accuracy: 0.9310 - val_loss: 0.3163
+Epoch 9/10
+6/6 ━━━━━━━━━━━━━━━━━━━━ 3s 451ms/step - accuracy: 1.0000 - loss: 3.5003e-06 - val_accuracy: 0.8621 - val_loss: 0.2639
+Epoch 10/10
+6/6 ━━━━━━━━━━━━━━━━━━━━ 3s 445ms/step - accuracy: 1.0000 - loss: 5.5225e-06 - val_accuracy: 0.8966 - val_loss: 0.3362
+1/1 ━━━━━━━━━━━━━━━━━━━━ 0s 157ms/step - accuracy: 0.9583 - loss: 0.1125
+Test Accuracy: 0.9583333134651184
+Final Training Accuracy: 1.0000
+Final Validation Accuracy: 0.8966
+epochs: 10, batch size: 12, validation split: 0.2
+0: BoomBap
+1: BossaNova
+2: BrazilianFunk
+3: Dancehall
+4: DnB
+5: Dubstep
+6: House
+7: JerseyClub
+8: Reggaeton
+9: Trap
+Shape of X: (120, 128, 330)
+Labels: [0 1 2 3 4 5 6 7 8 9]
+Epoch 1/10
+100%|██████████| 11/11 [00:02<00:00,  4.26it/s]
+7/7 ━━━━━━━━━━━━━━━━━━━━ 5s 481ms/step - accuracy: 0.3446 - loss: 12.3010 - val_accuracy: 0.8500 - val_loss: 0.3275
+Epoch 2/10
+7/7 ━━━━━━━━━━━━━━━━━━━━ 3s 441ms/step - accuracy: 0.8585 - loss: 1.9417 - val_accuracy: 0.9000 - val_loss: 0.2872
+Epoch 3/10
+7/7 ━━━━━━━━━━━━━━━━━━━━ 3s 436ms/step - accuracy: 0.8893 - loss: 0.9179 - val_accuracy: 0.9000 - val_loss: 0.1919
+Epoch 4/10
+7/7 ━━━━━━━━━━━━━━━━━━━━ 3s 448ms/step - accuracy: 0.9381 - loss: 1.3484 - val_accuracy: 0.9000 - val_loss: 0.1851
+Epoch 5/10
+7/7 ━━━━━━━━━━━━━━━━━━━━ 3s 435ms/step - accuracy: 0.9858 - loss: 0.1845 - val_accuracy: 0.9000 - val_loss: 0.1859
+Epoch 6/10
+7/7 ━━━━━━━━━━━━━━━━━━━━ 3s 439ms/step - accuracy: 0.9613 - loss: 0.1600 - val_accuracy: 0.9000 - val_loss: 0.2706
+Epoch 7/10
+7/7 ━━━━━━━━━━━━━━━━━━━━ 3s 432ms/step - accuracy: 1.0000 - loss: 0.0142 - val_accuracy: 0.8000 - val_loss: 0.3815
+Epoch 8/10
+7/7 ━━━━━━━━━━━━━━━━━━━━ 3s 426ms/step - accuracy: 0.9929 - loss: 0.0164 - val_accuracy: 0.8000 - val_loss: 0.6441
+Epoch 9/10
+7/7 ━━━━━━━━━━━━━━━━━━━━ 3s 422ms/step - accuracy: 1.0000 - loss: 4.7607e-06 - val_accuracy: 0.7500 - val_loss: 1.1432
+Epoch 10/10
+7/7 ━━━━━━━━━━━━━━━━━━━━ 3s 458ms/step - accuracy: 1.0000 - loss: 3.9429e-05 - val_accuracy: 0.7000 - val_loss: 1.8316
+1/1 ━━━━━━━━━━━━━━━━━━━━ 0s 173ms/step - accuracy: 0.6250 - loss: 2.7043
+Test Accuracy: 0.625
+Final Training Accuracy: 1.0000
+Final Validation Accuracy: 0.7000
+epochs: 10, batch size: 12, validation split: 0.1
+0: BoomBap
+1: BossaNova
+2: BrazilianFunk
+3: Dancehall
+4: DnB
+5: Dubstep
+6: House
+7: JerseyClub
+8: Reggaeton
+9: Trap
+Shape of X: (120, 128, 330)
+Labels: [0 1 2 3 4 5 6 7 8 9]
+Epoch 1/10
+8/8 ━━━━━━━━━━━━━━━━━━━━ 5s 452ms/step - accuracy: 0.4621 - loss: 8.7131 - val_accuracy: 0.8000 - val_loss: 0.3767
+Epoch 2/10
+8/8 ━━━━━━━━━━━━━━━━━━━━ 4s 437ms/step - accuracy: 0.7719 - loss: 7.2623 - val_accuracy: 0.8000 - val_loss: 0.3768
+100%|██████████| 11/11 [00:02<00:00,  4.04it/s]
+Epoch 3/10
+8/8 ━━━━━━━━━━━━━━━━━━━━ 4s 457ms/step - accuracy: 0.7884 - loss: 5.8865 - val_accuracy: 0.9000 - val_loss: 0.3037
+Epoch 4/10
+8/8 ━━━━━━━━━━━━━━━━━━━━ 4s 439ms/step - accuracy: 0.7791 - loss: 2.6142 - val_accuracy: 1.0000 - val_loss: 0.1657
+Epoch 5/10
+8/8 ━━━━━━━━━━━━━━━━━━━━ 4s 432ms/step - accuracy: 0.9098 - loss: 0.7236 - val_accuracy: 0.9000 - val_loss: 0.2901
+Epoch 6/10
+8/8 ━━━━━━━━━━━━━━━━━━━━ 3s 424ms/step - accuracy: 0.9399 - loss: 0.3459 - val_accuracy: 0.9000 - val_loss: 0.4783
+Epoch 7/10
+8/8 ━━━━━━━━━━━━━━━━━━━━ 3s 425ms/step - accuracy: 0.9584 - loss: 0.2606 - val_accuracy: 0.8000 - val_loss: 0.5827
+Epoch 8/10
+8/8 ━━━━━━━━━━━━━━━━━━━━ 3s 423ms/step - accuracy: 0.9401 - loss: 0.1957 - val_accuracy: 0.8000 - val_loss: 0.7179
+Epoch 9/10
+8/8 ━━━━━━━━━━━━━━━━━━━━ 3s 417ms/step - accuracy: 0.9664 - loss: 0.2028 - val_accuracy: 0.8000 - val_loss: 1.0724
+Epoch 10/10
+8/8 ━━━━━━━━━━━━━━━━━━━━ 3s 427ms/step - accuracy: 0.9922 - loss: 0.1016 - val_accuracy: 0.5000 - val_loss: 1.8625
+1/1 ━━━━━━━━━━━━━━━━━━━━ 0s 167ms/step - accuracy: 0.4167 - loss: 2.5581
+Test Accuracy: 0.4166666567325592
+Final Training Accuracy: 0.9767
+Final Validation Accuracy: 0.5000
+epochs: 10, batch size: 16, validation split: 0.3
+0: BoomBap
+1: BossaNova
+2: BrazilianFunk
+3: Dancehall
+4: DnB
+5: Dubstep
+6: House
+7: JerseyClub
+8: Reggaeton
+9: Trap
+Shape of X: (120, 128, 330)
+Labels: [0 1 2 3 4 5 6 7 8 9]
+Epoch 1/10
+5/5 ━━━━━━━━━━━━━━━━━━━━ 5s 589ms/step - accuracy: 0.3027 - loss: 12.5983 - val_accuracy: 0.7241 - val_loss: 1.8679
+Epoch 2/10
+5/5 ━━━━━━━━━━━━━━━━━━━━ 3s 530ms/step - accuracy: 0.7180 - loss: 9.0893 - val_accuracy: 0.6897 - val_loss: 0.9727
+100%|██████████| 11/11 [00:02<00:00,  3.79it/s]
+Epoch 3/10
+5/5 ━━━━━━━━━━━━━━━━━━━━ 3s 534ms/step - accuracy: 0.8327 - loss: 2.6517 - val_accuracy: 0.7931 - val_loss: 0.5705
+Epoch 4/10
+5/5 ━━━━━━━━━━━━━━━━━━━━ 3s 542ms/step - accuracy: 0.8612 - loss: 1.4693 - val_accuracy: 0.7931 - val_loss: 0.8001
+Epoch 5/10
+5/5 ━━━━━━━━━━━━━━━━━━━━ 3s 533ms/step - accuracy: 0.9571 - loss: 0.2364 - val_accuracy: 0.7931 - val_loss: 0.4564
+Epoch 6/10
+5/5 ━━━━━━━━━━━━━━━━━━━━ 3s 527ms/step - accuracy: 1.0000 - loss: 0.0067 - val_accuracy: 0.7931 - val_loss: 0.3451
+Epoch 7/10
+5/5 ━━━━━━━━━━━━━━━━━━━━ 3s 512ms/step - accuracy: 0.9733 - loss: 0.3294 - val_accuracy: 0.7931 - val_loss: 0.4390
+Epoch 8/10
+5/5 ━━━━━━━━━━━━━━━━━━━━ 3s 522ms/step - accuracy: 1.0000 - loss: 2.9183e-05 - val_accuracy: 0.7931 - val_loss: 0.5672
+Epoch 9/10
+5/5 ━━━━━━━━━━━━━━━━━━━━ 3s 522ms/step - accuracy: 1.0000 - loss: 0.0025 - val_accuracy: 0.6897 - val_loss: 0.6870
+Epoch 10/10
+5/5 ━━━━━━━━━━━━━━━━━━━━ 3s 521ms/step - accuracy: 1.0000 - loss: 0.0011 - val_accuracy: 0.6207 - val_loss: 0.9872
+1/1 ━━━━━━━━━━━━━━━━━━━━ 0s 157ms/step - accuracy: 0.6667 - loss: 1.3832
+Test Accuracy: 0.6666666865348816
+Final Training Accuracy: 1.0000
+Final Validation Accuracy: 0.6207
+epochs: 10, batch size: 16, validation split: 0.2
+0: BoomBap
+1: BossaNova
+2: BrazilianFunk
+3: Dancehall
+4: DnB
+5: Dubstep
+6: House
+7: JerseyClub
+8: Reggaeton
+9: Trap
+Shape of X: (120, 128, 330)
+Labels: [0 1 2 3 4 5 6 7 8 9]
+Epoch 1/10
+5/5 ━━━━━━━━━━━━━━━━━━━━ 5s 624ms/step - accuracy: 0.3480 - loss: 8.7939 - val_accuracy: 0.7000 - val_loss: 0.8404
+Epoch 2/10
+100%|██████████| 11/11 [00:02<00:00,  3.90it/s]
+5/5 ━━━━━━━━━━━━━━━━━━━━ 3s 585ms/step - accuracy: 0.7263 - loss: 4.4831 - val_accuracy: 0.8000 - val_loss: 0.5185
+Epoch 3/10
+5/5 ━━━━━━━━━━━━━━━━━━━━ 3s 587ms/step - accuracy: 0.8538 - loss: 2.1002 - val_accuracy: 0.8500 - val_loss: 0.4218
+Epoch 4/10
+5/5 ━━━━━━━━━━━━━━━━━━━━ 3s 596ms/step - accuracy: 0.9886 - loss: 0.1173 - val_accuracy: 0.9000 - val_loss: 0.3873
+Epoch 5/10
+5/5 ━━━━━━━━━━━━━━━━━━━━ 3s 587ms/step - accuracy: 0.9843 - loss: 0.0490 - val_accuracy: 0.9000 - val_loss: 0.3634
+Epoch 6/10
+5/5 ━━━━━━━━━━━━━━━━━━━━ 3s 585ms/step - accuracy: 0.9599 - loss: 0.2239 - val_accuracy: 0.8500 - val_loss: 0.3770
+Epoch 7/10
+5/5 ━━━━━━━━━━━━━━━━━━━━ 3s 601ms/step - accuracy: 0.9930 - loss: 0.0112 - val_accuracy: 0.9000 - val_loss: 0.4826
+Epoch 8/10
+5/5 ━━━━━━━━━━━━━━━━━━━━ 3s 592ms/step - accuracy: 1.0000 - loss: 2.4159e-06 - val_accuracy: 0.9000 - val_loss: 0.5606
+Epoch 9/10
+5/5 ━━━━━━━━━━━━━━━━━━━━ 3s 604ms/step - accuracy: 1.0000 - loss: 1.8657e-07 - val_accuracy: 0.9000 - val_loss: 0.6388
+Epoch 10/10
+5/5 ━━━━━━━━━━━━━━━━━━━━ 3s 590ms/step - accuracy: 1.0000 - loss: 1.5499e-07 - val_accuracy: 0.9000 - val_loss: 0.7112
+1/1 ━━━━━━━━━━━━━━━━━━━━ 0s 169ms/step - accuracy: 0.6667 - loss: 2.1107
+Test Accuracy: 0.6666666865348816
+Final Training Accuracy: 1.0000
+Final Validation Accuracy: 0.9000
+epochs: 10, batch size: 16, validation split: 0.1
+0: BoomBap
+1: BossaNova
+2: BrazilianFunk
+3: Dancehall
+4: DnB
+5: Dubstep
+6: House
+7: JerseyClub
+8: Reggaeton
+9: Trap
+Shape of X: (120, 128, 330)
+Labels: [0 1 2 3 4 5 6 7 8 9]
+100%|██████████| 11/11 [00:02<00:00,  3.92it/s]
+Epoch 1/10
+6/6 ━━━━━━━━━━━━━━━━━━━━ 5s 577ms/step - accuracy: 0.2732 - loss: 20.4149 - val_accuracy: 0.8000 - val_loss: 0.3751
+Epoch 2/10
+6/6 ━━━━━━━━━━━━━━━━━━━━ 3s 554ms/step - accuracy: 0.7920 - loss: 1.9891 - val_accuracy: 0.9000 - val_loss: 0.1858
+Epoch 3/10
+6/6 ━━━━━━━━━━━━━━━━━━━━ 3s 559ms/step - accuracy: 0.8280 - loss: 1.3716 - val_accuracy: 0.9000 - val_loss: 0.3309
+Epoch 4/10
+6/6 ━━━━━━━━━━━━━━━━━━━━ 3s 550ms/step - accuracy: 0.9335 - loss: 0.5165 - val_accuracy: 1.0000 - val_loss: 0.0654
+Epoch 5/10
+6/6 ━━━━━━━━━━━━━━━━━━━━ 3s 535ms/step - accuracy: 0.9531 - loss: 0.2319 - val_accuracy: 1.0000 - val_loss: 0.0501
+Epoch 6/10
+6/6 ━━━━━━━━━━━━━━━━━━━━ 3s 561ms/step - accuracy: 0.9462 - loss: 0.2437 - val_accuracy: 1.0000 - val_loss: 0.0191
+Epoch 7/10
+6/6 ━━━━━━━━━━━━━━━━━━━━ 3s 566ms/step - accuracy: 0.9949 - loss: 0.0120 - val_accuracy: 1.0000 - val_loss: 0.0173
+Epoch 8/10
+6/6 ━━━━━━━━━━━━━━━━━━━━ 3s 569ms/step - accuracy: 0.9615 - loss: 0.1809 - val_accuracy: 0.9000 - val_loss: 0.0835
+Epoch 9/10
+6/6 ━━━━━━━━━━━━━━━━━━━━ 5s 560ms/step - accuracy: 0.9949 - loss: 0.0289 - val_accuracy: 0.9000 - val_loss: 0.2081
+Epoch 10/10
+6/6 ━━━━━━━━━━━━━━━━━━━━ 3s 558ms/step - accuracy: 1.0000 - loss: 1.2752e-04 - val_accuracy: 0.9000 - val_loss: 0.3062
+100%|██████████| 11/11 [00:02<00:00,  3.75it/s]
+1/1 ━━━━━━━━━━━━━━━━━━━━ 0s 175ms/step - accuracy: 0.7083 - loss: 2.6988
+Test Accuracy: 0.7083333134651184
+Final Training Accuracy: 1.0000
+Final Validation Accuracy: 0.9000
+epochs: 10, batch size: 32, validation split: 0.3
+0: BoomBap
+1: BossaNova
+2: BrazilianFunk
+3: Dancehall
+4: DnB
+5: Dubstep
+6: House
+7: JerseyClub
+8: Reggaeton
+9: Trap
+Shape of X: (120, 128, 330)
+Labels: [0 1 2 3 4 5 6 7 8 9]
+Epoch 1/10
+3/3 ━━━━━━━━━━━━━━━━━━━━ 5s 858ms/step - accuracy: 0.2203 - loss: 6.5269 - val_accuracy: 0.6207 - val_loss: 0.9952
+Epoch 2/10
+3/3 ━━━━━━━━━━━━━━━━━━━━ 3s 759ms/step - accuracy: 0.6412 - loss: 12.5546 - val_accuracy: 0.8276 - val_loss: 0.6757
+Epoch 3/10
+3/3 ━━━━━━━━━━━━━━━━━━━━ 3s 809ms/step - accuracy: 0.8245 - loss: 5.3013 - val_accuracy: 0.6552 - val_loss: 0.7106
+Epoch 4/10
+3/3 ━━━━━━━━━━━━━━━━━━━━ 3s 745ms/step - accuracy: 0.8394 - loss: 2.0856 - val_accuracy: 0.6552 - val_loss: 0.9197
+Epoch 5/10
+3/3 ━━━━━━━━━━━━━━━━━━━━ 3s 746ms/step - accuracy: 0.7975 - loss: 1.0440 - val_accuracy: 0.7586 - val_loss: 0.7129
+Epoch 6/10
+3/3 ━━━━━━━━━━━━━━━━━━━━ 3s 795ms/step - accuracy: 0.9119 - loss: 0.3713 - val_accuracy: 0.7931 - val_loss: 0.4998
+Epoch 7/10
+3/3 ━━━━━━━━━━━━━━━━━━━━ 3s 743ms/step - accuracy: 0.9389 - loss: 0.2008 - val_accuracy: 0.7586 - val_loss: 0.4339
+Epoch 8/10
+3/3 ━━━━━━━━━━━━━━━━━━━━ 3s 748ms/step - accuracy: 1.0000 - loss: 0.0052 - val_accuracy: 0.7586 - val_loss: 0.4230
+Epoch 9/10
+3/3 ━━━━━━━━━━━━━━━━━━━━ 3s 765ms/step - accuracy: 1.0000 - loss: 0.0016 - val_accuracy: 0.7931 - val_loss: 0.4440
+100%|██████████| 11/11 [00:02<00:00,  3.99it/s]
+Epoch 10/10
+3/3 ━━━━━━━━━━━━━━━━━━━━ 3s 749ms/step - accuracy: 0.9886 - loss: 0.0770 - val_accuracy: 0.7931 - val_loss: 0.5114
+1/1 ━━━━━━━━━━━━━━━━━━━━ 0s 171ms/step - accuracy: 0.7500 - loss: 0.6182
+Test Accuracy: 0.75
+Final Training Accuracy: 0.9851
+Final Validation Accuracy: 0.7931
+epochs: 10, batch size: 32, validation split: 0.2
+0: BoomBap
+1: BossaNova
+2: BrazilianFunk
+3: Dancehall
+4: DnB
+5: Dubstep
+6: House
+7: JerseyClub
+8: Reggaeton
+9: Trap
+Shape of X: (120, 128, 330)
+Labels: [0 1 2 3 4 5 6 7 8 9]
+Epoch 1/10
+3/3 ━━━━━━━━━━━━━━━━━━━━ 5s 970ms/step - accuracy: 0.3106 - loss: 6.4952 - val_accuracy: 0.8000 - val_loss: 1.2183
+Epoch 2/10
+3/3 ━━━━━━━━━━━━━━━━━━━━ 3s 906ms/step - accuracy: 0.6583 - loss: 8.4756 - val_accuracy: 0.6500 - val_loss: 0.6707
+Epoch 3/10
+3/3 ━━━━━━━━━━━━━━━━━━━━ 3s 917ms/step - accuracy: 0.8886 - loss: 2.0080 - val_accuracy: 0.7000 - val_loss: 1.1304
+Epoch 4/10
+3/3 ━━━━━━━━━━━━━━━━━━━━ 3s 901ms/step - accuracy: 0.9359 - loss: 0.3430 - val_accuracy: 0.7500 - val_loss: 1.7418
+Epoch 5/10
+3/3 ━━━━━━━━━━━━━━━━━━━━ 3s 907ms/step - accuracy: 0.9137 - loss: 1.2294 - val_accuracy: 0.6500 - val_loss: 1.7270
+Epoch 6/10
+3/3 ━━━━━━━━━━━━━━━━━━━━ 3s 924ms/step - accuracy: 0.9607 - loss: 0.4158 - val_accuracy: 0.7500 - val_loss: 1.2546
+Epoch 7/10
+3/3 ━━━━━━━━━━━━━━━━━━━━ 3s 902ms/step - accuracy: 0.9895 - loss: 0.1479 - val_accuracy: 0.7500 - val_loss: 0.7942
+Epoch 8/10
+100%|██████████| 11/11 [00:02<00:00,  4.03it/s]
+3/3 ━━━━━━━━━━━━━━━━━━━━ 3s 887ms/step - accuracy: 0.9790 - loss: 0.1610 - val_accuracy: 0.8000 - val_loss: 0.5421
+Epoch 9/10
+3/3 ━━━━━━━━━━━━━━━━━━━━ 3s 885ms/step - accuracy: 0.9817 - loss: 0.0247 - val_accuracy: 0.8500 - val_loss: 0.4188
+Epoch 10/10
+3/3 ━━━━━━━━━━━━━━━━━━━━ 3s 898ms/step - accuracy: 1.0000 - loss: 3.0660e-05 - val_accuracy: 0.9500 - val_loss: 0.3680
+1/1 ━━━━━━━━━━━━━━━━━━━━ 0s 174ms/step - accuracy: 0.7917 - loss: 0.7338
+Test Accuracy: 0.7916666865348816
+Final Training Accuracy: 1.0000
+Final Validation Accuracy: 0.9500
+epochs: 10, batch size: 32, validation split: 0.1
+0: BoomBap
+1: BossaNova
+2: BrazilianFunk
+3: Dancehall
+4: DnB
+5: Dubstep
+6: House
+7: JerseyClub
+8: Reggaeton
+9: Trap
+Shape of X: (120, 128, 330)
+Labels: [0 1 2 3 4 5 6 7 8 9]
+Epoch 1/10
+3/3 ━━━━━━━━━━━━━━━━━━━━ 5s 1s/step - accuracy: 0.3480 - loss: 6.2362 - val_accuracy: 0.9000 - val_loss: 0.9553
+Epoch 2/10
+3/3 ━━━━━━━━━━━━━━━━━━━━ 3s 1s/step - accuracy: 0.6692 - loss: 8.7734 - val_accuracy: 0.9000 - val_loss: 0.5712
+Epoch 3/10
+3/3 ━━━━━━━━━━━━━━━━━━━━ 3s 1s/step - accuracy: 0.8054 - loss: 3.4525 - val_accuracy: 0.8000 - val_loss: 0.4620
+Epoch 4/10
+3/3 ━━━━━━━━━━━━━━━━━━━━ 3s 1s/step - accuracy: 0.8561 - loss: 1.7776 - val_accuracy: 0.8000 - val_loss: 0.4766
+Epoch 5/10
+3/3 ━━━━━━━━━━━━━━━━━━━━ 3s 1s/step - accuracy: 0.8969 - loss: 1.3312 - val_accuracy: 1.0000 - val_loss: 0.0639
+Epoch 6/10
+3/3 ━━━━━━━━━━━━━━━━━━━━ 3s 1s/step - accuracy: 0.9845 - loss: 0.0828 - val_accuracy: 1.0000 - val_loss: 0.0213
+Epoch 7/10
+3/3 ━━━━━━━━━━━━━━━━━━━━ 3s 1s/step - accuracy: 0.9475 - loss: 0.4772 - val_accuracy: 1.0000 - val_loss: 0.0235
+Epoch 8/10
+3/3 ━━━━━━━━━━━━━━━━━━━━ 3s 1s/step - accuracy: 0.9903 - loss: 0.0147 - val_accuracy: 1.0000 - val_loss: 0.0275
+Epoch 9/10
+3/3 ━━━━━━━━━━━━━━━━━━━━ 3s 1s/step - accuracy: 0.9884 - loss: 0.1468 - val_accuracy: 1.0000 - val_loss: 0.0382
+Epoch 10/10
+3/3 ━━━━━━━━━━━━━━━━━━━━ 3s 1s/step - accuracy: 0.9649 - loss: 0.0662 - val_accuracy: 0.9000 - val_loss: 0.0815
+1/1 ━━━━━━━━━━━━━━━━━━━━ 0s 171ms/step - accuracy: 0.8333 - loss: 0.4455
+Test Accuracy: 0.8333333134651184
+Final Training Accuracy: 0.9767
+Final Validation Accuracy: 0.9000
+Best validation scores: [1.0, 1.0, 1.0, 1.0, 0.949999988079071]
+Best testing scores: [1.0, 1.0, 1.0, 1.0, 1.0]
+
+Process finished with exit code 0
+
+analysing notes:
+epochs: 8, batch size: 32, validation split: 0.1
+Test Accuracy: 0.9166666865348816
+Final Training Accuracy: 1.0000
+Final Validation Accuracy: 1.0000
+
+epochs: 10, batch size: 12, validation split: 0.3
+Test Accuracy: 0.9583333134651184
+Final Training Accuracy: 1.0000
+Final Validation Accuracy: 0.8966
+epochs: 10, batch size: 12, validation split: 0.2
+

@@ -5,6 +5,7 @@ import keras
 from keras import ops
 import librosa
 import numpy as np
+from tensorflow.python.keras.callbacks import EarlyStopping
 from tqdm import tqdm
 from sklearn.preprocessing import LabelEncoder
 from sklearn.model_selection import train_test_split
@@ -35,11 +36,12 @@ class GenreClassifier:
         model_local.save(self.model_path)
 
     # Spectrogram extraction function
-    def extract_mel_spectrogram(self, file_path, n_mels=128, fixed_length=330):
+    def extract_mel_spectrogram(self, file_path, n_mels=128, fixed_length=330, input=input):
         y, sr = librosa.load(file_path, duration=8)
         mel = librosa.feature.melspectrogram(y=y, sr=sr, n_mels=n_mels)
         mel_db = librosa.power_to_db(mel, ref=np.max)
-        mel_db = librosa.util.fix_length(mel_db, size=fixed_length, axis=1)
+        mel_db_clean = np.where(mel_db < -40, -80, mel_db)  # remove anything below -40dB
+        mel_db = librosa.util.fix_length(mel_db_clean, size=fixed_length, axis=1)
         return mel_db
 
     def data_prep(self):
@@ -141,13 +143,18 @@ class GenreClassifier:
         # batch_size = 16  # Try different sizes 128
         optimizer = "adam"  # Try different optimizers "adam"
         # validation_split = 0.2  # Try different splits 0.2
+        early_stopping = EarlyStopping(
+            monitor='val_loss',
+            patience=3,
+            restore_best_weights=True
+        )
 
         model.compile(optimizer=optimizer,
                       loss="sparse_categorical_crossentropy",
                       metrics=["accuracy"])
 
         model_history = model.fit(X_train, y_train, epochs=self.epochs, batch_size=self.batch_size,
-                                  validation_split=self.validation_split,
+                                  validation_split=self.validation_split, callbacks=[early_stopping],
                                   verbose=1)
 
         test_loss, test_accuracy = model.evaluate(X_test, y_test)
@@ -223,63 +230,71 @@ class GenreClassifier:
         plt.show()
 
 
-# def gridsearch():
-#     conv1 = (16, 32, 64)
-#     conv2 = (16, 32, 64)
-#     dropoutrate = (0.01, 0.05, 0.1)
-#     epoch_size = (8, 12, 16)
-#     batch_size = (16, 32, 64)
-#     all_histories = []
-#     all_values = []
-#
-#     for a in conv1:
-#         for b in conv2:
-#             for c in dropoutrate:
-#                 for d in epoch_size:
-#                     for e in batch_size:
-#                         local_model = model(a, b, c)
-#                         train_history = train_model(local_model, d, e)
-#                         local_values = [a, b, c, d, e]
-#                         all_histories.append(train_history)
-#                         all_values.append(local_values)
-#                         print(f"{a}, {b}, {c}, {d}, {e}")
-#     return all_histories, all_values
 
 
-# all_histories, all_values = gridsearch()
+GenreClassifier = GenreClassifier()
 
-# Best values:
-#   16, 16, 0.05, 12, 32
-# 16, 16, 0.05, 12, 64
-# 32, 16, 0.05, 8, 16 best one
-# 32, 64, 0.1, 16, 64
-# ? 32, 32, 0.1, 12, 64
-# ? 64, 16, 0.1, 12, 64
+def grid_search_CNN():
+    epoch_list = (6, 8, 10)
+    batch_list = (12, 16, 32)
+    validation_list = (0.3, 0.2, 0.1)
+    all_val = []
+    all_tr = []
+    for a in epoch_list:
+        for b in batch_list:
+            for c in validation_list:
+                GenreClassifier.epochs = a
+                GenreClassifier.batch_size = b
+                GenreClassifier.validation_split = c
+                print(f"epochs: {a}, batch size: {b}, validation split: {c}")
+                this_model_history, this_model, this_X_test, this_y_test = GenreClassifier.run_classifier()
+                final_train_acc = this_model_history.history['accuracy'][-1]
+                final_val_acc = this_model_history.history['val_accuracy'][-1]
+                all_tr.append(final_train_acc)
+                print(f"Final Training Accuracy: {final_train_acc:.4f}")
+                all_val.append(final_val_acc)
+                print(f"Final Validation Accuracy: {final_val_acc:.4f}")
+
+    all_val = sorted(all_val, reverse=True)[:5]
+    print(f"Best validation scores: {all_val}")
+    all_tr = sorted(all_tr, reverse=True)[:5]
+    print(f"Best testing scores: {all_tr}")
+
+def main():
+    GenreClassifier.epochs = 6
+    GenreClassifier.batch_size = 32
+    GenreClassifier.validation_split = 0.1
+
+    keras.utils.set_random_seed(42)
+
+    # epochs: 8, batch size: 32, validation split: 0.1
+    # Test Accuracy: 0.9166666865348816
+    # Final Training Accuracy: 1.0000
+    # Final Validation Accuracy: 1.0000
+    #
+    # epochs: 10, batch size: 12, validation split: 0.3
+    # Test Accuracy: 0.9583333134651184
+    # Final Training Accuracy: 1.0000
+    # Final Validation Accuracy: 0.8966
+    # epochs: 10, batch size: 12, validation split: 0.2
+
+    # epochs: 6, batch size: 32, validation split: 0.1
 
 
 
-# def main():
-#     GenreClassifier.epochs = 8
-#     GenreClassifier.batch_size = 12
-#     GenreClassifier.validation_split = 0.2
-#
-#     # spect = GenreClassifier.extract_mel_spectrogram("output.wav")
-#     # spect2 = GenreClassifier.extract_mel_spectrogram("Audio/BrazilianFunk/BrazilianFunkQuantized.wav")
-#     # spect3 = GenreClassifier.extract_mel_spectrogram("Audio/House/HouseOffset #3.wav")
-#     # GenreClassifier.show_spectogram(spect)
-#     # GenreClassifier.show_spectogram(spect2)
-#     # GenreClassifier.show_spectogram(spect3)
-#
-#
-#     this_model_history, this_model, this_X_test, this_y_test = GenreClassifier.run_classifier()
-#     GenreClassifier.save_model(this_model)
-#
-#
-#
-#     GenreClassifier.show_model_training(model_history_local=this_model_history, model=this_model,
-#                                         X_test_local=this_X_test,
-#                                         y_test_local=this_y_test)
-#     GenreClassifier.confusionmatrix(model=this_model, X_test=this_X_test, y_test=this_y_test)
+    # spect = GenreClassifier.extract_mel_spectrogram("output.wav")
+    # spect2 = GenreClassifier.extract_mel_spectrogram("Audio/BrazilianFunk/BrazilianFunkQuantized.wav")
+    # spect3 = GenreClassifier.extract_mel_spectrogram("Audio/House/HouseOffset #3.wav")
+    # GenreClassifier.show_spectogram(spect)
+    # GenreClassifier.show_spectogram(spect2)
+    # GenreClassifier.show_spectogram(spect3)
+    this_model_history, this_model, this_X_test, this_y_test = GenreClassifier.run_classifier()
+    GenreClassifier.save_model(this_model)
+
+    GenreClassifier.show_model_training(model_history_local=this_model_history, model=this_model,
+                                        X_test_local=this_X_test,
+                                        y_test_local=this_y_test)
+    GenreClassifier.confusionmatrix(model=this_model, X_test=this_X_test, y_test=this_y_test)
 
 
-# main()
+main()
