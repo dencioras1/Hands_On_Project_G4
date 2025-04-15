@@ -259,7 +259,7 @@ def grid_search_CNN():
 
 def main():
     GenreClassifier.epochs = 6
-    GenreClassifier.batch_size = 32
+    GenreClassifier.batch_size = 40
     GenreClassifier.validation_split = 0.1
 
     keras.utils.set_random_seed(42)
