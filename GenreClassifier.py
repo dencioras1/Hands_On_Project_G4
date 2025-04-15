@@ -229,11 +229,11 @@ class GenreClassifier:
         plt.title('Confusion Matrix')
         plt.show()
 
-# GenreClassifier = GenreClassifier()
+GenreClassifier = GenreClassifier()
 
 def grid_search_CNN():
     epoch_list = (6, 8, 10)
-    batch_list = (12, 16, 32)
+    batch_list = (16, 32, 48, 64)
     validation_list = (0.3, 0.2, 0.1)
     all_val = []
     all_tr = []
@@ -258,11 +258,13 @@ def grid_search_CNN():
     print(f"Best testing scores: {all_tr}")
 
 def main():
-    GenreClassifier.epochs = 6
-    GenreClassifier.batch_size = 40
-    GenreClassifier.validation_split = 0.1
+    # GenreClassifier.epochs = 12
+    # GenreClassifier.batch_size = 48
+    # GenreClassifier.validation_split = 0.1
+
 
     keras.utils.set_random_seed(42)
+    grid_search_CNN()
 
     # epochs: 8, batch size: 32, validation split: 0.1
     # Test Accuracy: 0.9166666865348816
@@ -277,20 +279,20 @@ def main():
 
     # epochs: 6, batch size: 32, validation split: 0.1
 
-    spect = GenreClassifier.extract_mel_spectrogram("output.wav")
-    spect2 = GenreClassifier.extract_mel_spectrogram("Audio/BrazilianFunk/BrazilianFunkQuantized.wav")
-    spect3 = GenreClassifier.extract_mel_spectrogram("Audio/House/HouseOffset #3.wav")
-    GenreClassifier.show_spectogram(spect)
-    GenreClassifier.show_spectogram(spect2)
-    GenreClassifier.show_spectogram(spect3)
+    # spect = GenreClassifier.extract_mel_spectrogram("output.wav")
+    # spect2 = GenreClassifier.extract_mel_spectrogram("Audio/BrazilianFunk/BrazilianFunkQuantized.wav")
+    # spect3 = GenreClassifier.extract_mel_spectrogram("Audio/House/HouseOffset #3.wav")
+    # GenreClassifier.show_spectogram(spect)
+    # GenreClassifier.show_spectogram(spect2)
+    # GenreClassifier.show_spectogram(spect3)
 
-    this_model_history, this_model, this_X_test, this_y_test = GenreClassifier.run_classifier()
+    # this_model_history, this_model, this_X_test, this_y_test = GenreClassifier.run_classifier()
     # GenreClassifier.save_model(this_model)
 
-    GenreClassifier.show_model_training(model_history_local=this_model_history, model=this_model,
-                                        X_test_local=this_X_test,
-                                        y_test_local=this_y_test)
-    GenreClassifier.confusionmatrix(model=this_model, X_test=this_X_test, y_test=this_y_test)
+    # GenreClassifier.show_model_training(model_history_local=this_model_history, model=this_model,
+    #                                     X_test_local=this_X_test,
+    #                                     y_test_local=this_y_test)
+    # GenreClassifier.confusionmatrix(model=this_model, X_test=this_X_test, y_test=this_y_test)
 
 
-# main()
+main()
