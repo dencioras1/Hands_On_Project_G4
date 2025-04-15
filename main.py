@@ -21,7 +21,7 @@ pygame.init()
 # New resolution: 1920x1080 fullscreen
 SCREEN = pygame.display.set_mode((1920, 1080))
 pygame.display.set_caption("Menu")
-BG = pygame.image.load("assets/glow.jpg")
+BG = pygame.image.load("assets/glow2.jpg")
 game = Game(None)
 clock = pygame.time.Clock()
 genre_classifier = GenreClassifier()
@@ -58,10 +58,10 @@ def play():
 
         input = button_controller.handle_serial_input()
 
-        # Check if game is done, ie there is a recording
-        if button_controller.get_has_recorded_and_saved():
-            print("User has recorded, stopping in game loop")
-            break
+        # # Check if game is done, ie there is a recording
+        # if button_controller.get_has_recorded_and_saved():
+        #     print("User has recorded, stopping in game loop")
+        #     break
     
     while True:
         if os.path.exists("output.wav"):
@@ -112,7 +112,7 @@ def main_menu():
         MENU_TEXT = get_title_font(100).render("Test your tunes", True, "#74b8ab")
         MENU_RECT = MENU_TEXT.get_rect(center=(1275, 150))
 
-        PLAY_BUTTON = Button(image=pygame.image.load("assets/Button_Background.png"), pos=(640, 400),
+        PLAY_BUTTON = Button(image=pygame.image.load("assets/Button_Background.png"), pos=(960, 600),
                              text_input="Play", font=get_font(50), base_color="#2e4e3d", hovering_color="White")
         QUIT_BUTTON = Button(image=None, pos=(1500, 900),
                              text_input="QUIT", font=get_font(50), base_color="#d7fcd4", hovering_color="White")
@@ -121,6 +121,8 @@ def main_menu():
 
         for button in [PLAY_BUTTON, QUIT_BUTTON]:
             button.update(SCREEN)
+
+        game.update_screen(SCREEN, False)
         
         if input == "TL":
             play()

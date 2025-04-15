@@ -8,7 +8,7 @@ from GenreClassifier import GenreClassifier
 from assets.button import Button
 
 moving_sprites = pygame.sprite.Group()
-animation = Animation(640, 260, "assets/Animations/loading")
+animation = Animation(960, 390, "assets/Animations/loading")
 moving_sprites.add(animation)
 clock = pygame.time.Clock()
 genre_classifier = GenreClassifier()
@@ -63,7 +63,7 @@ class Game:
             PLAY_TEXT = pygame.font.Font("assets/Courier_New.ttf", 45).render(f"This is the genre: {self.current_genre}"
                                                                               , True,
                                                                               "White")
-            PLAY_RECT = PLAY_TEXT.get_rect(center=(960, 540))
+            PLAY_RECT = PLAY_TEXT.get_rect(center=(960, 340))
             SCREEN.blit(PLAY_TEXT, PLAY_RECT)
 
             moving_sprites.draw(SCREEN)
