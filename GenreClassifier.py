@@ -257,13 +257,13 @@ def grid_search_CNN():
     print(f"Best testing scores: {all_tr}")
 
 def main():
-    GenreClassifier.epochs = 6
-    GenreClassifier.batch_size = 32
-    GenreClassifier.validation_split = 0.1
+    # GenreClassifier.epochs = 12
+    # GenreClassifier.batch_size = 48
+    # GenreClassifier.validation_split = 0.1
 
 
     keras.utils.set_random_seed(42)
-    # grid_search_CNN()
+    grid_search_CNN()
 
     # epochs: 8, batch size: 32, validation split: 0.1
     # Test Accuracy: 0.9166666865348816
@@ -291,7 +291,7 @@ def main():
     print(f"Final Training Accuracy: {final_train_acc:.4f}")
     print(f"Final Validation Accuracy: {final_val_acc:.4f}")
 
-    # GenreClassifier.save_model(this_model)
+    GenreClassifier.save_model(this_model)
 
     GenreClassifier.show_model_training(model_history_local=this_model_history, model=this_model,
                                         X_test_local=this_X_test,
